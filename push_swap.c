@@ -79,16 +79,15 @@ int main(int ac, char **av)
 	i = 0;
 	while(string_stack[i])
 	{
-		ft_printf("stack[%i] = %i\n", i, string_stack[i]);
+		ft_printf("stack[%i] = %s\n", i, string_stack[i]);
 		i++;
 	}
 
 	stack = get_num_stack(string_stack);
-	exit(1);
 	i = 0;
-	while(string_stack[i])
+	while(stack[i])
 	{
-		ft_printf("stack[%i] = %i\n", i, string_stack[i]);
+		ft_printf("stack[%i] = %i\n", i, stack[i]);
 		i++;
 	}
 }
