@@ -1,72 +1,94 @@
 #include "LIBFT/headers/libft.h"
 
-int fill_stack(const char ***list, long int **stack, int is_allocd)
+char **get_stack_as_a_string_array(char **args)
 {
 	int			i;
-	int			j;
-	int			n;
-	
+	char		**string_stack;
+
+	*string_stack = "\0";
 	i = 0;
-	n = 0;
-	while(list[i])
+	while(args[++i])
 	{
-		j = 0;
-		while(list[i][j])
+		*string_stack = ft_strjoin(*string_stack, args[i]);
+		*string_stack = ft_strjoin(*string_stack, " ");
+	}
+	i = 0;
+	while((*string_stack)[i])
+	{
+		if(!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i])))
 		{
-			if(is_allocd)
-			{
-				(*stack)[n] = ft_atoi(list[i][j]);
-				//ft_printf("stack[%i] = %i\n", n, (*stack)[n]);
-			}
-			j++;
-			n++;
+			ft_printf("Error");
+			exit(EXIT_FAILURE);
 		}
 		i++;
 	}
-	if(!is_allocd)
+	return(ft_split(*string_stack, ' '));
+}
+
+long int *get_num_stack(char **string_stack)
+{
+	int			i;
+	int			j;
+	long int	*stack;
+
+	stack = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
+	stack = malloc(i * sizeof(long int));
+	i = 0;
+	while(string_stack[i])
 	{
-		*stack = malloc(n * sizeof(int));
-		if(!stack)
-			return 0;		
-		fill_stack(list, stack, 1);
+		stack[i] = ft_atol(string_stack[i]);
+		j = i;
+		while(--j >= 0)
+			if(stack[i] == stack[j] || stack[i] != (int)stack[i])
+			{
+				ft_printf("Error");
+				exit(EXIT_FAILURE);
+			}
+		i++;
 	}
-	return 1;
+	return (stack);
 }
 
 int main(int ac, char **av)
 {
 	int			i;
-	int			j;
+	char		**string_stack;
 	long int	*stack;
-	char		***list;
 
+	// string_stack = get_stack_as_a_string_array(av);
+
+	*string_stack = "\0";
 	i = 0;
 	while(av[++i])
 	{
-		j = 0;
-		while(av[i][j])
+		*string_stack = ft_strjoin(*string_stack, av[i]);
+		*string_stack = ft_strjoin(*string_stack, " ");
+	}
+	i = 0;
+	while((*string_stack)[i])
+	{
+		if(!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i])))
 		{
-			if(!(ft_isdigit(av[i][j]) || ft_isspace(av[i][j])))
-			{
-				ft_printf("Error");
-				exit(EXIT_FAILURE);
-			}
-			j++;
+			ft_printf("Error");
+			exit(EXIT_FAILURE);
 		}
+		i++;
+	}
+	string_stack = ft_split(*string_stack, ' ');
+
+	i = 0;
+	while(string_stack[i])
+	{
+		ft_printf("stack[%i] = %i\n", i, string_stack[i]);
+		i++;
 	}
 
-	list = malloc((ac) * sizeof(char**));
-	if(!list)
-		exit(EXIT_FAILURE);
+	stack = get_num_stack(string_stack);
+	exit(1);
 	i = 0;
-	while(av[++i])
-		list[i - 1] = ft_split(av[i], ' ');
-	if(!fill_stack((const char ***)list, &stack, 0))
-		exit(EXIT_FAILURE);
-	i = 0;
-	while(stack[i])
+	while(string_stack[i])
 	{
-		ft_printf("stack[%i] = %i\n", i, stack[i]);
+		ft_printf("stack[%i] = %i\n", i, string_stack[i]);
 		i++;
 	}
 }
