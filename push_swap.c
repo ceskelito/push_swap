@@ -1,5 +1,5 @@
 #include "LIBFT/headers/libft.h"
-
+#include <stdio.h>
 char **get_stack_as_a_string_array(char **args)
 {
 	int			i;
@@ -77,12 +77,6 @@ int main(int ac, char **av)
 	string_stack = ft_split(*string_stack, ' ');
 
 	i = 0;
-	while(string_stack[i])
-	{
-		ft_printf("stack[%i] = %s\n", i, string_stack[i]);
-		i++;
-	}
-
 	stack = get_num_stack(string_stack);
 	i = 0;
 	while(stack[i])
