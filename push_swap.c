@@ -1,48 +1,31 @@
-#include "LIBFT/headers/libft.h"
-#include <stdio.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
+/*   Updated: 2025/03/12 13:08:42 by rceschel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//da eliminare 
-static long     ft_atol(char *str)
-{
-        long    num;
-        int     sign;
-
-        num = 0;
-        sign = 1;
-        if (*str == '-')
-        {
-                sign = -sign;
-                str++;
-        }
-        while (*str)
-        {
-                num *= 10;
-                num += (*str - '0');
-                str++;
-        }
-        return (num * sign);
-}
-//da eliminare
+#include "push_swap.h"
 
 char **get_stack_as_a_string_array(char **args)
 {
 	int			i;
 	char		**string_stack;
-
-	string_stack = NULL;
 	
 	string_stack = (char **)malloc(sizeof(char *));
 	if (!string_stack)
 		exit(EXIT_FAILURE);
-	
 	*string_stack = (char *)malloc(sizeof(1));
 	if (!*string_stack)
 	{
 		free(string_stack);
 		exit(EXIT_FAILURE);
 	}
-	
 	*string_stack = "\0";
 	i = 0;
 	while(args[++i])
@@ -65,9 +48,9 @@ char **get_stack_as_a_string_array(char **args)
 
 long int *get_num_stack(char **string_stack)
 {
-	int			i;
-	int			j;
-	long int	*stack;
+	int		i;
+	int		j;
+	long 	*stack;
 
 	stack = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
 	i = 0;
@@ -75,8 +58,8 @@ long int *get_num_stack(char **string_stack)
 	{
 		stack[i] = ft_atol(string_stack[i]);
 		j = i;
-		while(--j >= 0)
-			if(stack[i] == stack[j] || stack[i] != (int)stack[i])
+		while(j-- >= 0)
+			if((i != j && stack[i] == stack[j]) || stack[i] != (int)stack[i])
 			{
 				ft_printf("Error");
 				exit(EXIT_FAILURE);
@@ -88,18 +71,21 @@ long int *get_num_stack(char **string_stack)
 
 int main(int ac, char **av)
 {
-	int			i;
-	char		**string_stack;
-	long int	*stack;
+	int				i;
+	char			**string_stack;
+	static t_stack	stack;
 
+	if(ac <= 1)
+		exit(EXIT_SUCCESS);
 	string_stack = get_stack_as_a_string_array(av);
-	
 	i = 0;
-	stack = get_num_stack(string_stack);
+	stack.a = get_num_stack(string_stack);
+	stack.b = ft_calloc(1, sizeof(stack.a));
 	i = 0;
-	while(stack[i])
+	while(stack.a[i])
 	{
-		ft_printf("stack[%i] = %i\n", i, stack[i]);
+		ft_printf("stack_a[%i] = %i\n", i, stack.a[i]);
+		ft_printf("stack_b[%i] = %i\n", i, stack.b[i]);
 		i++;
 	}
 }
