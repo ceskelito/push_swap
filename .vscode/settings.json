@@ -63,6 +63,7 @@
     "initializer_list": "cpp",
     "ranges": "cpp",
     "span": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "stdarg.h": "c"
   }
 }
