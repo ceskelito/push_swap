@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/14 16:06:08 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:36:00 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	main(int ac, char **av)
 	DEBUG_PRINT(stack.b, 'b');
 	
 #ifdef MOVE
-	MOVE(stack.a);
+	MOVE(NULL);
 	DEBUG_PRINT(stack.a, 'a');
 	DEBUG_PRINT(stack.b, 'b');
 #endif
