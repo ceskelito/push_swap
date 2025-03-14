@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/12 15:30:36 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:08:35 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,19 @@ char	**get_stack_as_a_string_array(char **args)
 	i = 0;
 	while ((*string_stack)[i])
 	{
-		if (!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i])))
+		if (!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i]) || 
+			(*string_stack)[i] == '-'))
 			exit_error();
 		i++;
 	}
 	return (ft_split(*string_stack, ' '));
 }
 
-t_stack_single	get_stack(char **string_stack)
+t_stack	get_stack(char **string_stack)
 {
 	int				i;
 	int				j;
-	t_stack_single	stack;
+	t_stack	stack;
 
 	stack.list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
 	i = 0;
@@ -58,16 +59,33 @@ t_stack_single	get_stack(char **string_stack)
 	{
 		stack.list[i] = ft_atol(string_stack[i]);
 		j = i;
-		if (stack.list[i] != (int)stack.list[i])
+		if (stack.list[i] != (int)stack.list[i] || stack.list[i] < 0)
 			exit_error();
 		while (--j >= 0)
 			if (stack.list[i] == stack.list[j])
 				exit_error();
 		i++;
 	}
+	stack.lenght = i;
 	stack.size = i;
-	stack.capacity = i;
 	return (stack);
+}
+
+
+t_stack *new_stack()
+{
+	t_stack *stack;
+
+	stack = ft_calloc(1, sizeof(t_stack));
+	stack->list = NULL;
+	stack->size = 0;
+	stack->lenght = 0;
+	return (stack);
+}
+
+void debug_print_stack(t_stack stack, char name)
+{
+
 }
 
 int	main(int ac, char **av)
@@ -78,15 +96,15 @@ int	main(int ac, char **av)
 
 	if (ac <= 1)
 		exit(EXIT_SUCCESS);
+	stack.a = new_stack();
+	stack.b = new_stack();
 	string_stack = get_stack_as_a_string_array(av);
 	i = 0;
-	stack.a = get_stack(string_stack);
-	stack.b.list = ft_calloc(1, sizeof(stack.a));
+	*stack.a = get_stack(string_stack);
 	i = 0;
-	while (stack.a.list[i])
+	while (i < stack.a->lenght)
 	{
-		ft_printf("stack_a[%i] = %i\t\t\t", i, stack.a.list[i]);
-		ft_printf("stack_b[%i] = %i\n", i, stack.b.list[i]);
+		ft_printf("a[%i] = %i\n", i, stack.a->list[i]);
 		i++;
 	}
 }

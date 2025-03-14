@@ -7,7 +7,7 @@ OBJS_DIR 	:= objs
 LIB 		:= LIBFT/libft.a
 
 
-SOURCES = push_swap.c
+SOURCES = push_swap.c moves.c
 
 OBJECTS = $(addprefix $(OBJS_DIR)/, $(SOURCES:.c=.o))
 
