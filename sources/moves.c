@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "../headers/push_swap.h"
 #include <stdbool.h>
 
 void swap_values(long *a, long *b)
