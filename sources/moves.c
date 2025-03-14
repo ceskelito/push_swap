@@ -1,14 +1,14 @@
 #include "../headers/push_swap.h"
 #include <stdbool.h>
 
-void swap_values(long *a, long *b)
+static void swap_values(long *a, long *b)
 {
 	*a = *a ^ *b;
 	*b = *a ^ *b;
 	*a = *a ^ *b;
 }
 
-t_stack *expand_stack(t_stack *stack)
+static t_stack *expand_stack(t_stack *stack)
 {
 	t_stack *new_stack;
 	
@@ -24,6 +24,20 @@ void swap(t_stack *stack)
 	if(stack->lenght < 2)
 		return;
 	swap_values(&stack->list[0], &stack->list[1]);
+}
+
+void push(t_stack *dest, t_stack *src)
+{
+	if (src->lenght < 1)
+		return;
+	if (dest->size == dest->lenght)
+		dest = expand_stack(dest);
+	rev_rotate(dest);
+	dest->list[0] = src->list[0];
+	src->list[0] = 0;
+	rotate(src);
+	src->lenght--;
+	dest->lenght++;
 }
 
 void rotate(t_stack *stack)
@@ -50,19 +64,7 @@ void rev_rotate(t_stack *stack)
 	}
 }
 
-void push(t_stack *dest, t_stack *src)
-{
-	if (src->lenght < 1)
-		return;
-	if (dest->size == dest->lenght)
-		dest = expand_stack(dest);
-	rev_rotate(dest);
-	dest->list[0] = src->list[0];
-	src->list[0] = 0;
-	rotate(src);
-	src->lenght--;
-	dest->lenght++;
-}
+
 
 // exec_move(char *move)
 // {

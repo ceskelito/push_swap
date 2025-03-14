@@ -6,14 +6,20 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:17 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/14 14:58:47 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:44:34 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "LIBFT/headers/libft.h"
+# include "../LIBFT/headers/libft.h"
 # include "stack_struct.h"
+
+/**********MOVES*********/
+void	swap(t_stack *stack);
+void	push(t_stack *dest, t_stack *src);
+void	rotate(t_stack *stack);
+void	rev_rotate(t_stack *stack);
 
 #endif

@@ -4,10 +4,12 @@ CFLAGS 	:= -Wall -Werror -Wextra
 RM 		:= rm -f
 MKDIR 		:= mkdir -p
 OBJS_DIR 	:= objs
+SRCS_DIR	:= sources
 LIB 		:= LIBFT/libft.a
 
 
-SOURCES = push_swap.c moves.c
+SOURCES_NAMES = push_swap.c moves.c
+SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))
 
 OBJECTS = $(addprefix $(OBJS_DIR)/, $(SOURCES:.c=.o))
 

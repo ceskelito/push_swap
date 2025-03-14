@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/14 15:23:55 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:06:08 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**get_stack_as_a_string_array(char **args)
 	while ((*string_stack)[i])
 	{
 		if (!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i]) || 
-			(*string_stack)[i] == '-'))
+			(*string_stack)[i] == '-' || (*string_stack)[i] == '+'))
 			exit_error();
 		i++;
 	}
@@ -83,28 +83,35 @@ t_stack *new_stack()
 	return (stack);
 }
 
-void debug_print_stack(t_stack stack, char name)
+void DEBUG_PRINT(t_stack *stack, char name)
 {
+	ft_printf("\n----start----\n");
+	ft_printf("%c.lenght = %i\n", name, stack->lenght);
+	ft_printf("%c.size = %i\n", name, stack->size);
+	for(int i = 0; i < stack->lenght; i++)
+		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
+	ft_printf("-----end-----\n");
 
 }
 
 int	main(int ac, char **av)
 {
-	int						i;
 	char					**string_stack;
 	static t_stack_compose	stack;
-
 	if (ac <= 1)
 		exit(EXIT_SUCCESS);
 	stack.a = new_stack();
 	stack.b = new_stack();
 	string_stack = get_stack_as_a_string_array(av);
-	i = 0;
 	*stack.a = get_stack(string_stack);
-	i = 0;
-	while (i < stack.a->lenght)
-	{
-		ft_printf("a[%i] = %i\n", i, stack.a->list[i]);
-		i++;
-	}
+	
+	DEBUG_PRINT(stack.a, 'a');
+	DEBUG_PRINT(stack.b, 'b');
+	
+#ifdef MOVE
+	MOVE(stack.a);
+	DEBUG_PRINT(stack.a, 'a');
+	DEBUG_PRINT(stack.b, 'b');
+#endif
+
 }
