@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 11:15:45 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:27:19 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ typedef struct s_stack_compose
 {
 	t_stack	*a;
 	t_stack	*b;
+
+	void	(*ss)(void);
+	void	(*rr)(void);
+	void	(*rrr)(void);
+
 }					t_stack_compose;
 
 #endif
