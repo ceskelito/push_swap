@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   methods_b.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 14:35:50 by rceschel          #+#    #+#             */
+/*   Updated: 2025/03/19 14:40:52 by rceschel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/push_swap.h"
 
-void sb(void)
+void	sb(void)
 {
 	swap(get_address('b'));
 }
 
-void pb(void)
+void	pb(void)
 {
 	push(get_address('b'), get_address('a'));
 }
 
-void rb(void)
+void	rb(void)
 {
 	rotate(get_address('b'));
 }
 
-void rrb(void)
+void	rrb(void)
 {
 	rev_rotate(get_address('b'));
 }
