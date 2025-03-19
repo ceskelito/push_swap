@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 12:50:58 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:32:20 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,11 @@ char	**get_stack_as_a_string_array(char **args)
 	return (ft_split(*string_stack, ' '));
 }
 
-t_stack	*get_stack(char **string_stack)
+void	set_stack_list(char **string_stack, t_stack *stack)
 {
 	int				i;
 	int				j;
-	t_stack	*stack;
 
-	stack = ft_calloc(1, sizeof(t_stack));
-	if(!stack)
-		exit_error();
 	stack->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
 	i = 0;
 	while (string_stack[i])
@@ -65,9 +61,7 @@ t_stack	*get_stack(char **string_stack)
 	}
 	stack->lenght = i;
 	stack->size = i;
-	return (stack);
 }
-
 
 t_stack *new_stack(void)
 {
@@ -85,19 +79,21 @@ t_stack *new_stack(void)
 t_stack_compose new_stack_compose(void)
 {
 		t_stack_compose stack;
-		stack.ss = &ss;
-		stack.rr = &rr;
-		stack.rrr = &rrr;
+		stack.ss = ss;
+		stack.rr = rr;
+		stack.rrr = rrr;
 		stack.a = new_stack();
-		stack.a->swap = &sa;
-		stack.a->push = &pa;
-		stack.a->rotate = &ra;
-		stack.a->rev_rotate = &rra;
+		get_address('s', 'a', stack.a);
+		stack.a->swap = sa;
+		stack.a->push = pa;
+		stack.a->rotate = ra;
+		stack.a->rev_rotate = rra;
 		stack.b = new_stack();
-		stack.b->swap = &sb;
-		stack.b->push = &pb;
-		stack.b->rotate = &rb;
-		stack.b->rev_rotate = &rrb;
+		get_address('s', 'b', stack.b);
+		stack.b->swap = sb;
+		stack.b->push = pb;
+		stack.b->rotate = rb;
+		stack.b->rev_rotate = rrb;
 		return (stack);
 }
 
@@ -120,14 +116,10 @@ int	main(int ac, char **av)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
 	string_stack = get_stack_as_a_string_array(av);
-	stack.a = get_stack(string_stack);
-
-	get_address('s', 'a', stack.a);
-	get_address('s', 'b', stack.b);
-	
+	set_stack_list(string_stack, stack.a);
 	DEBUG_PRINT(stack.a, 'a');
-	stack.a->push();
-	stack.a->push();
+    stack.b->push();
+	stack.b->push();
 	DEBUG_PRINT(stack.a, 'a');
 	DEBUG_PRINT(stack.b, 'b');
 }

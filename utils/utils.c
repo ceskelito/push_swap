@@ -38,9 +38,9 @@ t_stack *get_address(int stack_name, ...)
 		va_end(args);
 		return NULL;
 	}
-	if(stack_name == 'a')
+	if(stack_name == 'a' && stack_a)
 		return stack_a;
-	if(stack_name == 'b')
+	if(stack_name == 'b' && stack_b)
 		return stack_b;
 	exit_error();
 	return NULL;
