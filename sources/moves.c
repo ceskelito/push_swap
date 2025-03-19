@@ -1,8 +1,4 @@
 #include "../headers/push_swap.h"
-#include <stdbool.h>
-#include <stdarg.h>
-
-
 
 static t_stack *expand_stack(t_stack *stack)
 {

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 11:44:33 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:50:58 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ t_stack	*get_stack(char **string_stack)
 	int				j;
 	t_stack	*stack;
 
+	stack = ft_calloc(1, sizeof(t_stack));
+	if(!stack)
+		exit_error();
 	stack->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
 	i = 0;
 	while (string_stack[i])
@@ -118,14 +121,13 @@ int	main(int ac, char **av)
 	stack = new_stack_compose();
 	string_stack = get_stack_as_a_string_array(av);
 	stack.a = get_stack(string_stack);
-	
-	DEBUG_PRINT(stack.a, 'a');
-	DEBUG_PRINT(stack.b, 'b');
-	
-#ifdef MOVE
-	MOVE(NULL);
-	DEBUG_PRINT(stack.a, 'a');
-	DEBUG_PRINT(stack.b, 'b');
-#endif
 
+	get_address('s', 'a', stack.a);
+	get_address('s', 'b', stack.b);
+	
+	DEBUG_PRINT(stack.a, 'a');
+	stack.a->push();
+	stack.a->push();
+	DEBUG_PRINT(stack.a, 'a');
+	DEBUG_PRINT(stack.b, 'b');
 }

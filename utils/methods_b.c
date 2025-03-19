@@ -1,21 +1,21 @@
 #include "../headers/push_swap.h"
 
-void swap_b(void)
+void sb(void)
 {
 	swap(get_address('b'));
 }
 
-void push_b(void)
+void pb(void)
 {
 	push(get_address('b'), get_address('a'));
 }
 
-void rotate_b(void)
+void rb(void)
 {
 	rotate(get_address('b'));
 }
 
-void rev_rotate_b(void)
+void rrb(void)
 {
 	rev_rotate(get_address('b'));
 }
