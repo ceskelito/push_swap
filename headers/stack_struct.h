@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/14 14:58:45 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:15:45 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ typedef struct s_stack
 	long	*list;
 	int		lenght;
 	int		size;
+
+	void	(*swap)(void);
+	void	(*push)(void);
+	void	(*rotate)(void);
+	void	(*rev_rotate)(void);
 }			t_stack;
 
 typedef struct s_stack_compose

@@ -64,6 +64,7 @@
     "ranges": "cpp",
     "span": "cpp",
     "utility": "cpp",
-    "stdarg.h": "c"
+    "stdarg.h": "c",
+    "push_swap.h": "c"
   }
 }

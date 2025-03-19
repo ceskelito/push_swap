@@ -6,17 +6,11 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/14 17:36:00 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:11:31 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
-
-void	exit_error(void)
-{
-	ft_printf("Error");
-	exit(EXIT_FAILURE);
-}
 
 char	**get_stack_as_a_string_array(char **args)
 {
