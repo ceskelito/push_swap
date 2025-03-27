@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:35:43 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 14:37:28 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:53:29 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ void	swap_values(long *a, long *b)
 	*a = *a ^ *b;
 }
 
+/*	GET ADDRESS
+If called with one argument only, return the address of the stack named
+as the argument says.
+
+If the first arg is 's' (means "set"), so the selected by name stack address
+is setted in function of the third argument (the stack address).
+
+This function is used in order to call the moves specifically on a stack
+without passing any argument.
+*/
 t_stack	*get_address(int stack_name, ...)
 {
 	static t_stack	*stack_a;
@@ -41,17 +51,15 @@ t_stack	*get_address(int stack_name, ...)
 			stack_a = va_arg(args, t_stack *);
 		else if (stack_to_set == 'b')
 			stack_b = va_arg(args, t_stack *);
-		else
-		{
-			va_end(args);
-			exit_error();
-		}
 		va_end(args);
+		if((stack_to_set == 'a' && !stack_a) ||
+			(stack_to_set == 'b' && !stack_b))
+			exit_error();
 		return (NULL);
 	}
 	if (stack_name == 'a' && stack_a)
 		return (stack_a);
-	if (stack_name == 'b' && stack_b)
+	else if (stack_name == 'b' && stack_b)
 		return (stack_b);
 	exit_error();
 	return (NULL);

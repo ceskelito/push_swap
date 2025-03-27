@@ -6,39 +6,45 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/27 13:31:12 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:05:58 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
+#include "../headers/new_stack.h"
 
 char	**get_stack_as_a_string_array(char **args)
 {
 	int		i;
-	char	**string_stack;
+	char	*formatted_args;
+	char	**string_array;
+	char	*ptr;
 
-	string_stack = (char **)malloc(sizeof(char *));
-	if (!string_stack)
+	formatted_args = ft_calloc(1, sizeof(char));
+	if (!formatted_args)
 		exit(EXIT_FAILURE);
-	*string_stack = (char *)malloc(sizeof(1));
-	if (!*string_stack)
-	{
-		free(string_stack);
-		exit(EXIT_FAILURE);
-	}
-	*string_stack = "\0";
+	*formatted_args = '\0';
 	i = 0;
 	while (args[++i])
-		*string_stack = ft_strjoin_multi(3, *string_stack, args[i], " ");
-	i = 0;
-	while ((*string_stack)[i])
 	{
-		if (!(ft_isdigit((*string_stack)[i]) || ft_isspace((*string_stack)[i])
-				|| (*string_stack)[i] == '-' || (*string_stack)[i] == '+'))
+		ptr = formatted_args;
+		formatted_args = ft_strjoin_multi(3, formatted_args, args[i], " ");
+		free(ptr);
+	}
+	i = 0;
+	while (formatted_args[i])
+	{
+		if (!(ft_isdigit((formatted_args)[i]) || ft_isspace((formatted_args)[i])
+				|| (formatted_args)[i] == '-' || (formatted_args)[i] == '+'))
+		{
+			free(formatted_args);
 			exit_error();
+		}
 		i++;
 	}
-	return (ft_split(*string_stack, ' '));
+	string_array = ft_split(formatted_args, ' ');
+	free(formatted_args);
+	return (string_array);
 }
 
 void	set_stack_list(char **string_stack, t_stack *stack)
@@ -63,40 +69,6 @@ void	set_stack_list(char **string_stack, t_stack *stack)
 	stack->size = i;
 }
 
-t_stack	*new_stack(void)
-{
-	t_stack	*stack;
-
-	stack = ft_calloc(1, sizeof(t_stack));
-	if (!stack)
-		exit_error();
-	stack->list = NULL;
-	stack->size = 0;
-	stack->lenght = 0;
-	return (stack);
-}
-
-t_stack_compose	new_stack_compose(void)
-{
-	t_stack_compose	stack;
-
-	stack.ss = ss;
-	stack.rr = rr;
-	stack.rrr = rrr;
-	stack.a = new_stack();
-	get_address('s', 'a', stack.a);
-	stack.a->swap = sa;
-	stack.a->push = pa;
-	stack.a->rotate = ra;
-	stack.a->rev_rotate = rra;
-	stack.b = new_stack();
-	get_address('s', 'b', stack.b);
-	stack.b->swap = sb;
-	stack.b->push = pb;
-	stack.b->rotate = rb;
-	stack.b->rev_rotate = rrb;
-	return (stack);
-}
 
 void	DEBUG_PRINT(t_stack *stack, char name)
 {

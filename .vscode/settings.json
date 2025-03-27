@@ -67,6 +67,8 @@
     "stdarg.h": "c",
     "push_swap.h": "c",
     "stdbool.h": "c",
-    "random": "c"
+    "random": "c",
+    "new_stack.h": "c",
+    "stack_struct.h": "c"
   }
 }
