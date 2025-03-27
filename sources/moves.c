@@ -6,21 +6,27 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:36:02 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 14:40:17 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:11:53 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
 
-static t_stack	*expand_stack(t_stack *stack)
+static void expand_list(t_stack *stack)
 {
-	t_stack	*new_stack;
+	long	*new_list;
+	int		i;
 
-	new_stack = ft_calloc(1, sizeof(stack));
-	new_stack->list = ft_calloc(stack->lenght + 1, sizeof(int));
-	ft_memcpy(new_stack, stack, sizeof(stack));
-	new_stack->size++;
-	return (new_stack);
+	new_list = ft_calloc(stack->size + 1, sizeof(long));
+	i = 0;
+	while(i < stack->lenght)
+	{
+		new_list[i] = stack->list[i];
+		i++;
+	}
+	free(stack->list);
+	stack->list = new_list;
+	stack->size++;
 }
 
 void	swap(t_stack *stack)
@@ -35,7 +41,7 @@ void	push(t_stack *dest, t_stack *src)
 	if (!dest || !src || src->lenght < 1)
 		return ;
 	if (dest->size == dest->lenght)
-		dest = expand_stack(dest);
+		expand_list(dest);
 	rev_rotate(dest);
 	dest->list[0] = src->list[0];
 	src->list[0] = 0;

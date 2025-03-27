@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/19 14:32:20 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:31:12 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,27 @@ void	DEBUG_PRINT(t_stack *stack, char name)
 	ft_printf("-----end-----\n");
 }
 
+static void free_string_stack(char **string_stack)
+{
+	int	i;
+
+	i = 0;
+	while(string_stack[i])
+	{
+		free(string_stack[i]);
+		i++;
+	}
+	free(string_stack);
+}
+
+static void free_stack(t_stack_compose *stack)
+{
+	free(stack->a->list);
+	free(stack->a);
+	free(stack->b->list);
+	free(stack->b);	
+}
+
 int	main(int ac, char **av)
 {
 	char					**string_stack;
@@ -118,9 +139,11 @@ int	main(int ac, char **av)
 	stack = new_stack_compose();
 	string_stack = get_stack_as_a_string_array(av);
 	set_stack_list(string_stack, stack.a);
+	free_string_stack(string_stack);
 	DEBUG_PRINT(stack.a, 'a');
-	stack.b->push();
 	stack.b->push();
 	DEBUG_PRINT(stack.a, 'a');
 	DEBUG_PRINT(stack.b, 'b');
+	free_stack(&stack);
+	
 }
