@@ -69,6 +69,7 @@
     "stdbool.h": "c",
     "random": "c",
     "new_stack.h": "c",
-    "stack_struct.h": "c"
+    "stack_struct.h": "c",
+    "ft_lib.h": "c"
   }
 }

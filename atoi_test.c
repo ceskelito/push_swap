@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods_b.c                                        :+:      :+:    :+:   */
+/*   atoi_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 14:35:50 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/28 11:26:16 by rceschel         ###   ########.fr       */
+/*   Created: 2025/03/28 11:50:51 by rceschel          #+#    #+#             */
+/*   Updated: 2025/03/28 11:59:15 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/push_swap.h"
-#include "../headers/stack_utils.h"
+#include "../LIBFT/headers/ft_lib.h"
+#include <stdio.h>
 
-void	sb(void)
+int main()
 {
-	swap(get_address('b'));
-}
-
-void	pb(void)
-{
-	push(get_address('b'), get_address('a'));
-}
-
-void	rb(void)
-{
-	rotate(get_address('b'));
-}
-
-void	rrb(void)
-{
-	rev_rotate(get_address('b'));
+	printf("%i", ft_atoi("------+-++++--++-+-4"));
 }

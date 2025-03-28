@@ -12,7 +12,7 @@ LIB 		:= LIBFT/libft.a
 
 SOURCES_NAMES = push_swap.c moves.c
 SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))
-UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c utils_new_stack.c
+UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c stack_utils.c
 UTILS = $(addprefix $(UTILS_DIR)/, $(UTILS_NAMES))
 
 SOURCES_OBJECTS = $(addprefix $(OBJS_DIR)/, $(SOURCES_NAMES:.c=.o))

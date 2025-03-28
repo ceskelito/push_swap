@@ -6,12 +6,12 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/27 15:05:58 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:00:45 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
-#include "../headers/new_stack.h"
+#include "../headers/stack_utils.h"
 
 char	**get_stack_as_a_string_array(char **args)
 {
@@ -34,8 +34,8 @@ char	**get_stack_as_a_string_array(char **args)
 	i = 0;
 	while (formatted_args[i])
 	{
-		if (!(ft_isdigit((formatted_args)[i]) || ft_isspace((formatted_args)[i])
-				|| (formatted_args)[i] == '-' || (formatted_args)[i] == '+'))
+		if (!(ft_isdigit(formatted_args[i]) || ft_isspace(formatted_args[i])
+				|| formatted_args[i] == '-' || formatted_args[i] == '+'))
 		{
 			free(formatted_args);
 			exit_error();
@@ -47,26 +47,30 @@ char	**get_stack_as_a_string_array(char **args)
 	return (string_array);
 }
 
-void	set_stack_list(char **string_stack, t_stack *stack)
+void	init_stacks(char **string_stack, t_stack_compose *stack)
 {
 	int	i;
 	int	j;
 
-	stack->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
+	stack->a->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
+	stack->b->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
 	i = 0;
 	while (string_stack[i])
 	{
-		stack->list[i] = ft_atol(string_stack[i]);
+		stack->a->list[i] = ft_atol(string_stack[i]);
 		j = i;
-		if (stack->list[i] != (int)stack->list[i] || stack->list[i] < 0)
+		if (stack->a->list[i] != (int)stack->a->list[i] || stack->a->list[i] < 0)
 			exit_error();
 		while (--j >= 0)
-			if (stack->list[i] == stack->list[j])
+			if (stack->a->list[i] == stack->a->list[j])
 				exit_error();
 		i++;
 	}
-	stack->lenght = i;
-	stack->size = i;
+	stack->a->size = i;
+	stack->a->lenght = i;
+	stack->b->size = i;
+	stack->b->lenght = 0;
+
 }
 
 
@@ -110,7 +114,7 @@ int	main(int ac, char **av)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
 	string_stack = get_stack_as_a_string_array(av);
-	set_stack_list(string_stack, stack.a);
+	init_stacks(string_stack, &stack);
 	free_string_stack(string_stack);
 	DEBUG_PRINT(stack.a, 'a');
 	stack.b->push();
