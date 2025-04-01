@@ -43,8 +43,19 @@ char	**get_stack_as_a_string_array(char **args)
 		i++;
 	}
 	string_array = ft_split(formatted_args, ' ');
-	free(formatted_args);
+	if(formatted_args)
+		free(formatted_args);
 	return (string_array);
+}
+
+static int count_words(char **array)
+{
+    int i;
+
+    i = 0;
+    while(array[i])
+        i++;
+    return (i);
 }
 
 void	init_stacks(char **string_stack, t_stack_compose *stack)
@@ -52,15 +63,17 @@ void	init_stacks(char **string_stack, t_stack_compose *stack)
 	int	i;
 	int	j;
 
-	stack->a->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
-	stack->b->list = malloc(ft_strlen((char *)string_stack) * sizeof(long int));
+	stack->a->list = malloc(count_words(string_stack) * sizeof(long int));
+	stack->b->list = malloc(count_words(string_stack) * sizeof(long int));
+	if (!stack->a->list || !stack->b->list)
+        exit_error();
 	i = 0;
 	while (string_stack[i])
 	{
 		stack->a->list[i] = ft_atol(string_stack[i]);
-		j = i;
-		if (stack->a->list[i] != (int)stack->a->list[i] || stack->a->list[i] < 0)
+		if (stack->a->list[i] < 0 || stack->a->list[i] > INT_MAX)
 			exit_error();
+		j = i;
 		while (--j >= 0)
 			if (stack->a->list[i] == stack->a->list[j])
 				exit_error();
@@ -72,7 +85,6 @@ void	init_stacks(char **string_stack, t_stack_compose *stack)
 	stack->b->lenght = 0;
 
 }
-
 
 void	DEBUG_PRINT(t_stack *stack, char name)
 {
@@ -94,15 +106,24 @@ static void free_string_stack(char **string_stack)
 		free(string_stack[i]);
 		i++;
 	}
-	free(string_stack);
+	if(string_stack)
+		free(string_stack);
 }
 
 static void free_stack(t_stack_compose *stack)
 {
-	free(stack->a->list);
-	free(stack->a);
-	free(stack->b->list);
-	free(stack->b);	
+	if (stack->a)
+	{
+		if (stack->a->list)
+			free(stack->a->list);
+		free(stack->a);
+	}
+	if (stack->b)
+	{
+		if (stack->b->list)
+			free(stack->b->list);
+		free(stack->b);
+	}
 }
 
 int	main(int ac, char **av)

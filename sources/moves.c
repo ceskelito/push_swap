@@ -12,7 +12,7 @@
 
 #include "../headers/push_swap.h"
 
-static void	swap_values(long *a, long *b)
+void	swap_values(long *a, long *b)
 {
 	*a = *a ^ *b;
 	*b = *a ^ *b;

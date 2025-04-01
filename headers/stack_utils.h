@@ -36,5 +36,6 @@ t_stack_compose	new_stack_compose(void);
 
 /*********UTILS*********/
 t_stack	*get_address(int stack_name, ...);
+void	swap_values(long *a, long *b)
 
 #endif

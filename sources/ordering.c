@@ -90,6 +90,10 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 	b->push();
 	b->push();
 
+	if(b->list[0] < b->list[1])
+		swap_values(b->list[0], b->list[1]);
+
+/****************da rimuovere***************/
 	int	n_moves;
 	int	i;
 	int	tmp;
@@ -104,6 +108,7 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		i++;
 	}
 	ft_printf("\nnumero mosse: %i", n_moves);
+/*******************fine da rimuovere********/
 
 	cheapest_move = find_cheapest_move(stack, a, b);
 	(void) cheapest_move; //debug
