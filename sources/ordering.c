@@ -94,8 +94,8 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 	int	i;
 	int	tmp;
 
-	n_moves = 0;
-	i = 0;
+	n_moves = count_moves(stack, a, b, 0);
+	i = 1;
 	while(i < a->lenght)
 	{
 		tmp = count_moves(stack, a, b, i);
