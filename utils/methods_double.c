@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
+#include "../headers/stack_utils.h"
+
 
 void	ss(void)
 {

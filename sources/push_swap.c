@@ -120,6 +120,7 @@ int	main(int ac, char **av)
 	stack.b->push();
 	DEBUG_PRINT(stack.a, 'a');
 	DEBUG_PRINT(stack.b, 'b');
+	mechanical_turk(&stack, stack.a, stack.b);
 	free_stack(&stack);
 	
 }

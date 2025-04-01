@@ -10,7 +10,7 @@ UTILS_DIR	:= utils
 LIB 		:= LIBFT/libft.a
 
 
-SOURCES_NAMES = push_swap.c moves.c
+SOURCES_NAMES = push_swap.c moves.c ordering.c
 SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))
 UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c stack_utils.c
 UTILS = $(addprefix $(UTILS_DIR)/, $(UTILS_NAMES))

@@ -25,4 +25,7 @@ void	rev_rotate(t_stack *stack);
 /**********UTILS********/
 void	exit_error(void);
 
+/**********ALGO*********/
+void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b);
+
 #endif
