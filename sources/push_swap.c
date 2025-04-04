@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/28 12:00:45 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:53:44 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ static void free_stack(t_stack_compose *stack)
 	}
 }
 
+void tester();
+
 int	main(int ac, char **av)
 {
 	char					**string_stack;
@@ -138,6 +140,10 @@ int	main(int ac, char **av)
 	string_stack = get_stack_as_a_string_array(av);
 	init_stacks(string_stack, &stack);
 	free_string_stack(string_stack);
+	// stack.b->list[0] = 15;
+	// stack.b->list[1] = 10;
+	// stack.b->list[2] = 7;
+	// stack.b->lenght = 3;
 	DEBUG_PRINT('a');
 	DEBUG_PRINT('b');
 	mechanical_turk(&stack, stack.a, stack.b);
