@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:35:53 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/28 11:26:22 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:57:16 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	pa(void)
 
 void	ra(void)
 {
-	rotate(get_address('a'));
+	rotate(get_address('a');
 }
 
 void	rra(void)

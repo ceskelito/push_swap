@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/03/28 11:24:53 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:38:39 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_stack	*new_stack(void)
 	stack->list = NULL;
 	stack->size = 0;
 	stack->lenght = 0;
+	stack->moves = ft_calloc(1, sizeof(t_moves));
 	return (stack);
 }
 
