@@ -86,11 +86,12 @@ void	init_stacks(char **string_stack, t_stack_compose *stack)
 
 }
 
-void	DEBUG_PRINT(t_stack *stack, char name)
+void	DEBUG_PRINT(char name)
 {
+	t_stack *stack = get_address(name);
 	ft_printf("\n----start----\n");
-	ft_printf("%c.lenght = %i\n", name, stack->lenght);
-	ft_printf("%c.size = %i\n", name, stack->size);
+	/* ft_printf("%c.lenght = %i\n", name, stack->lenght);
+	ft_printf("%c.size = %i\n", name, stack->size); */
 	for (int i = 0; i < stack->lenght; i++)
 		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
 	ft_printf("-----end-----\n");
@@ -137,8 +138,11 @@ int	main(int ac, char **av)
 	string_stack = get_stack_as_a_string_array(av);
 	init_stacks(string_stack, &stack);
 	free_string_stack(string_stack);
-	DEBUG_PRINT(stack.a, 'a');
+	DEBUG_PRINT('a');
+	DEBUG_PRINT('b');
 	mechanical_turk(&stack, stack.a, stack.b);
+	DEBUG_PRINT('a');
+	DEBUG_PRINT('b');
 	free_stack(&stack);
 	
 }

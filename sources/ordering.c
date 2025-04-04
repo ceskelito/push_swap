@@ -14,14 +14,54 @@
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
+#define  R 0
+#define RR 1
+#define _R 2
+
 static int count_moves(t_stack_compose *stack, t_stack *a, t_stack *b, int index_from);
 
-static int moves_to_top(int index, int lenght)
+/*static char **moves_to_top_sevabbè(int index, int len)
 {
-	if(index > lenght / 2)
-		return (lenght - index);
+	char **moves;
+	int i;
+
+	moves = ft_calloc(index / 2, sizeof(char *));
+	i = 0;
+	while(i < index / 2)
+	{
+		moves[i] = ft_calloc(2, sizeof(char));
+		i++;
+	}
+	i = 0;
+	if(index > len / 2)
+		while(i < len - index){
+			ft_strlcpy(moves[i], "r", 1);
+			i++;
+		}
 	else
-		return (index);
+		while (i < index){
+			ft_strlcpy(moves[i], "rr", 2);
+			i++;
+		}
+	return (moves);
+}*/
+
+// moves[0] = moves count; moves[1] = 0:rotate | 1:rev rotate | 2:equivalent
+static int *moves_to_top(int index, int lenght, int moves[2])
+{
+	if (index > lenght / 2)
+	{
+		moves[0] = lenght - index;
+		moves[1] = 1;
+	}
+	else
+	{
+		moves[0] = index;
+		moves[1] = 0;
+		if(lenght % 2 == 0 && index == lenght / 2)
+			moves[1] = 2;
+	}
+	return (moves);
 }
 
 static void (*find_cheapest_move(t_stack_compose *stack, t_stack *a, t_stack *b))(void)
@@ -42,18 +82,28 @@ static void (*find_cheapest_move(t_stack_compose *stack, t_stack *a, t_stack *b)
 	return (NULL);
 }
 
+// All variables in the function refers to an index
 static int find_target_index(int na, t_stack *b)
 {
 	int	i;
+	int closest_smaller;
+	int biggest;
 
 	i = 0;
+	closest_smaller = -1;
+	biggest = 0;
 	while(i < b->lenght)
 	{
-		if(na > b->list[i])
-			return (i);
+		if(b->list[i] < na)
+			if(closest_smaller < 0 || na - b->list[i] < na - b->list[closest_smaller])
+				closest_smaller = i;
+		if(b->list[i] > b->list[biggest])
+			biggest = i;
 		i++;
 	}
-	return (b->lenght);
+	if (closest_smaller < 0)
+		return (biggest);
+	return (closest_smaller);
 }
 
 
@@ -61,25 +111,23 @@ static int find_target_index(int na, t_stack *b)
 static int count_moves(t_stack_compose *stack, t_stack *a, t_stack *b, int index_from)
 {
 	int n_moves;
-	int a_to_top;
-	int b_to_top;
+	int a_to_top[2];
+	int b_to_top[2];
 	int target_index;
 
 	(void) stack; //debug
 	target_index = find_target_index(a->list[index_from], b);
-	if((index_from > a->lenght / 2 && target_index > b->lenght / 2) ||
-		(index_from < a->lenght && target_index < b->lenght / 2))
+	moves_to_top(index_from, a->lenght, a_to_top);
+	moves_to_top(target_index, b->lenght, b_to_top);
+	if(a_to_top[1] == b_to_top[1] || (a_to_top[1] == 2 || b_to_top[1] == 2))
 	{
-		a_to_top = moves_to_top(index_from, a->lenght);
-		b_to_top = moves_to_top(target_index, b->lenght);
-		if( a_to_top > b_to_top)
-			n_moves = a_to_top;
+		if( b_to_top[0] > a_to_top[0])
+			a_to_top[0] = 0;
 		else
-			n_moves = b_to_top;
+			b_to_top[0] = 0;
 	}
-	else
-		n_moves = moves_to_top(index_from, a->lenght) + moves_to_top(target_index, b->lenght);
-	return (n_moves + 1);
+	n_moves = a_to_top[0] + b_to_top[0];
+	return (n_moves);
 }
 
 /* potrei salvare tutte le mosse in un array di puntatori a funzione e poi eseguirle*/
@@ -91,7 +139,7 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 	b->push();
 
 	if(b->list[0] < b->list[1])
-		swap_values(b->list[0], b->list[1]);
+		swap_values(b->list + 0, b->list + 1);
 
 /****************da rimuovere***************/
 	int	n_moves;

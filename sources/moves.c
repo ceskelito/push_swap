@@ -30,12 +30,13 @@ void	push(t_stack *dest, t_stack *src)
 {
 	if (!dest || !src || src->lenght < 1)
 		return ;
+	dest->lenght++;
 	rev_rotate(dest);
 	dest->list[0] = src->list[0];
 	src->list[0] = 0;
 	rotate(src);
 	src->lenght--;
-	dest->lenght++;
+	
 }
 
 void	rotate(t_stack *stack)
