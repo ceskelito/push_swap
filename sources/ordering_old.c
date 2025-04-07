@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:27:59 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/04 17:48:18 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:52:57 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,9 @@ static int get_cheapest_moves(t_stack_compose *stack)
 	int target_index;
 	int index_from;
 	int n_moves;
-	t_moves_list *to_top;
+	t_moves_set *to_top;
 
-	to_top = ft_calloc(1, sizeof(t_moves_list));
+	to_top = ft_calloc(1, sizeof(t_moves_set));
 	index_from = 0;
 	while(index_from < stack->a->lenght)
 	{

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:27:59 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/04 18:26:26 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 14:03:47 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
-static t_moves_list *optimize_moves(t_stack_compose *stack, t_moves_list *moves)
+
+
+static void optimize_moves(t_moves_set *moves)
 {
 	t_moves			*biggest;
 	t_moves			*smallest;
-	t_moves_list	optimised;
-	int				new_n_moves;
 
+	smallest = NULL;
+	biggest = NULL;
 	if(moves->a->direction == moves->b->direction)
 	{
 		moves->twin->direction = moves->a->direction;
@@ -36,6 +38,7 @@ static t_moves_list *optimize_moves(t_stack_compose *stack, t_moves_list *moves)
 		}
 		moves->twin->count = smallest->count;
 		biggest->count = biggest->count - smallest->count;
+		smallest->count = 0;
 	}
 	else if(moves->a->direction == 2 || moves->b->direction == 2)
 	{
@@ -43,32 +46,98 @@ static t_moves_list *optimize_moves(t_stack_compose *stack, t_moves_list *moves)
 			moves->a->direction = moves->b->direction;
 		else
 			moves->b->direction = moves->a->direction;
-		return (optimize_moves(stack, moves));
+		return (optimize_moves(moves));
 	}
-	new_n_moves = moves->twin->count + moves->a->count
-
-
+	free(smallest);
+	free(biggest);
+	moves->total = moves->a->count + moves->b->count + moves->twin->count;
 }
 
-static t_moves_list *get_cheapest_moves(t_stack_compose *stack)
+static t_moves *get_moves_to_top(int index_from, int lenght)
+{
+	t_moves *moves;
+	moves = new_moves();
+	if (index_from > lenght / 2)
+	{
+		moves->count = lenght - index_from;
+		moves->direction = 1;
+	}
+	else
+	{
+		moves->count = index_from;
+		moves->direction = 0;
+		if(lenght % 2 == 0 && index_from == lenght / 2)
+			moves->direction = 2;
+	}
+	return (moves);
+}
+
+// All variables in the function refers to an index_from
+static int find_target_index(int na, t_stack *b)
+{
+	int	i;
+	int closest_smaller;
+	int biggest;
+
+	i = 0;
+	closest_smaller = -1;
+	biggest = 0;
+	while(i < b->lenght)
+	{
+		if(b->list[i] < na)
+			if(closest_smaller < 0 || na - b->list[i] < na - b->list[closest_smaller])
+				closest_smaller = i;
+		if(b->list[i] > b->list[biggest])
+			biggest = i;
+		i++;
+	}
+	if (closest_smaller < 0)
+		return (biggest);
+	return (closest_smaller);
+}
+
+static void translate_moves(t_moves *moves_set, t_stack *stack_name)
+{
+	if(!moves_set || !stack_name)
+		return;
+	ft_printf("%i\n",moves_set->direction);
+	if(moves_set->direction == 0 || moves_set->direction == 2)
+		moves_set->to_exec = stack_name->rotate;
+	else
+		moves_set->to_exec = stack_name->rev_rotate;
+}
+
+static t_moves_set get_cheapest_moves(t_stack_compose *stack)
 {
 	int target_index;
 	int index_from;
-	int n_moves;
-	t_moves_list *to_top;
-	t_moves_list *best_moves;
+	t_moves_set new_moves;
+	t_moves_set best_moves;
 
-	to_top = ft_calloc(1, sizeof(t_moves_list));
+	new_moves = new_moves_set();
+	best_moves = new_moves_set();
 	index_from = 0;
 	while(index_from < stack->a->lenght)
 	{
 		target_index = find_target_index(stack->a->list[index_from], stack->b);
-		to_top->a = count_moves_to_top(index_from, stack->a->lenght);
-		to_top->b = count_moves_to_top(target_index, stack->b->lenght);
-		best_moves = optimize_moves(stack, to_top);
+		new_moves.a = get_moves_to_top(index_from, stack->a->lenght);
+		new_moves.b = get_moves_to_top(target_index, stack->b->lenght);
+		optimize_moves(&new_moves);
+		if(new_moves.total == 0)
+			return (new_moves);
+		if(index_from == 0)
+			best_moves = new_moves;
+		else if(new_moves.total < best_moves.total)
+		{
+			// free(best_moves);
+			best_moves = new_moves;
+		}
+		// free(new_moves);
 		index_from++;
 	}
-	return (to_top);
+	translate_moves(best_moves.a, stack->a);
+	translate_moves(best_moves.b, stack->b);
+	return (best_moves);
 }
 
 static void exec(t_moves *moves)
@@ -83,27 +152,24 @@ static void exec(t_moves *moves)
 void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 {
 	(void)stack;
-	t_moves_list *moves;
-	int cheapest_index;
+	t_moves_set moves;
 	int i;
 
-	cheapest_index = 0;
 	b->push();
 	b->push();
-
 	if(b->list[0] < b->list[1])
 		swap_values(b->list + 0, b->list + 1);
 
 	while(a->lenght > 3)
 	{
 		// cheapest_index = get_cheapest_index(a, b);
-		// set_moves_to_top(a, cheapest_index);
-		// set_moves_to_top(b, find_target_index(a->list[cheapest_index], b));
+		// set_moves_new_moves(a, cheapest_index);
+		// set_moves_new_moves(b, find_target_index(a->list[cheapest_index], b));
 
 		moves = get_cheapest_moves(stack);
-		exec(moves->twin);
-		exec(moves->a);
-		exec(moves->b);
+		exec(moves.twin);
+		exec(moves.a);
+		exec(moves.b);
 		b->push();
 	}
 	i = b->lenght;

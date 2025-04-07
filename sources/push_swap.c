@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/04 12:53:44 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:42:49 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	init_stacks(char **string_stack, t_stack_compose *stack)
 	int	i;
 	int	j;
 
-	stack->a->list = malloc(count_words(string_stack) * sizeof(long int));
-	stack->b->list = malloc(count_words(string_stack) * sizeof(long int));
+	stack->a->list = ft_calloc(count_words(string_stack), sizeof(long int));
+	stack->b->list = ft_calloc(count_words(string_stack), sizeof(long int));
 	if (!stack->a->list || !stack->b->list)
         exit_error();
 	i = 0;
