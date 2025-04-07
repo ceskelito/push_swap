@@ -1,4 +1,4 @@
-NAME 	:= push_swap
+NAME 	= push_swap
 CC 		:= cc 
 CFLAGS 	:= -Wall -Werror -Wextra -g -gdwarf-4
 RM 		:= rm -f
@@ -9,6 +9,12 @@ SRCS_DIR	:= sources
 UTILS_DIR	:= utils
 LIB 		:= LIBFT/libft.a
 
+ifeq ($(MODE), debug)
+NAME = debug.out
+ARGS = "1 2 3 4 5 6 7 8 9"
+run: all
+	@valgrind --leak-check=full --track-origins=yes ./$(NAME) $(ARGS) > valout 2>&1
+endif
 
 SOURCES_NAMES = push_swap.c moves.c ordering.c
 SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 14:04:41 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:30:42 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_moves_set new_moves_set(void)
 	moves_set.b = new_moves();
 	moves_set.twin = new_moves();
 	moves_set.total = 0;
-	return moves_set;
+	return (moves_set);
 }
 
 t_stack	*new_stack(void)

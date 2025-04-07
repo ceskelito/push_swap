@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 11:27:59 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 14:03:47 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:04:12 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ static void optimize_moves(t_moves_set *moves)
 			moves->a->direction = moves->b->direction;
 		else
 			moves->b->direction = moves->a->direction;
-		return (optimize_moves(moves));
+		optimize_moves(moves);
 	}
-	free(smallest);
-	free(biggest);
 	moves->total = moves->a->count + moves->b->count + moves->twin->count;
 }
 
@@ -100,11 +98,30 @@ static void translate_moves(t_moves *moves_set, t_stack *stack_name)
 {
 	if(!moves_set || !stack_name)
 		return;
-	ft_printf("%i\n",moves_set->direction);
 	if(moves_set->direction == 0 || moves_set->direction == 2)
 		moves_set->to_exec = stack_name->rotate;
 	else
 		moves_set->to_exec = stack_name->rev_rotate;
+}
+
+static void free_if_different(void *to_free, void *comparison)
+{
+	if(to_free != comparison)
+		free(to_free);
+}
+
+static void free_moves_set(t_moves_set *moves, t_moves_set *comparison)
+{
+	if(!comparison)
+	{
+		free(moves->a);
+		free(moves->b);
+		free(moves->twin);
+		return;
+	}
+	free_if_different(moves->a, comparison->a);
+	free_if_different(moves->b, comparison->b);
+	free_if_different(moves->twin, comparison->twin);
 }
 
 static t_moves_set get_cheapest_moves(t_stack_compose *stack)
@@ -119,29 +136,29 @@ static t_moves_set get_cheapest_moves(t_stack_compose *stack)
 	index_from = 0;
 	while(index_from < stack->a->lenght)
 	{
+		free_if_different(new_moves.a, best_moves.a);
+		free_if_different(new_moves.b, best_moves.b);
 		target_index = find_target_index(stack->a->list[index_from], stack->b);
 		new_moves.a = get_moves_to_top(index_from, stack->a->lenght);
 		new_moves.b = get_moves_to_top(target_index, stack->b->lenght);
 		optimize_moves(&new_moves);
-		if(new_moves.total == 0)
-			return (new_moves);
-		if(index_from == 0)
-			best_moves = new_moves;
-		else if(new_moves.total < best_moves.total)
+		if(new_moves.total < best_moves.total || index_from == 0)
 		{
-			// free(best_moves);
-			best_moves = new_moves;
+			free_moves_set(&best_moves, NULL);
+			ft_memmove(&best_moves, &new_moves, sizeof(new_moves));
 		}
-		// free(new_moves);
 		index_from++;
 	}
 	translate_moves(best_moves.a, stack->a);
 	translate_moves(best_moves.b, stack->b);
+	free_moves_set(&new_moves, &best_moves);
 	return (best_moves);
 }
 
 static void exec(t_moves *moves)
 {
+	if(!moves->to_exec)
+		return;
 	while(moves->count > 0)
 	{
 		moves->to_exec();
@@ -162,14 +179,11 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 
 	while(a->lenght > 3)
 	{
-		// cheapest_index = get_cheapest_index(a, b);
-		// set_moves_new_moves(a, cheapest_index);
-		// set_moves_new_moves(b, find_target_index(a->list[cheapest_index], b));
-
 		moves = get_cheapest_moves(stack);
 		exec(moves.twin);
 		exec(moves.a);
 		exec(moves.b);
+		free_moves_set(&moves, NULL);
 		b->push();
 	}
 	i = b->lenght;
@@ -183,5 +197,4 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		}
 		i--;
 	}
-	
 }

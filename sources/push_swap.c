@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 11:42:49 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:47:21 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int count_words(char **array)
     while(array[i])
         i++;
     return (i);
-}
+}	
 
 void	init_stacks(char **string_stack, t_stack_compose *stack)
 {
@@ -132,14 +132,20 @@ void tester();
 int	main(int ac, char **av)
 {
 	char					**string_stack;
-	static t_stack_compose	stack;
+	t_stack_compose	stack;
 
 	if (ac <= 1)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
-	string_stack = get_stack_as_a_string_array(av);
-	init_stacks(string_stack, &stack);
-	free_string_stack(string_stack);
+	free(stack.a); // (???)
+	stack.a = get_first_stack(av + 1);
+	stack.b->size = stack.a->size;
+	stack.b->lenght = 0;
+	
+	// string_stack = get_stack_as_a_string_array(av);
+	// init_stacks(string_stack, &stack);
+	
+	// free_string_stack(string_stack);
 	// stack.b->list[0] = 15;
 	// stack.b->list[1] = 10;
 	// stack.b->list[2] = 7;
