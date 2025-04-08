@@ -49,7 +49,7 @@ static int find_target_index(int num, t_stack *s)
 		if(num > s->list[i] && num - s->list[i] < diff)
 		{
 			target_index = i;
-			diff = s->list[i] - num;
+			diff = num - s->list[i];
 		}
 		if(s->list[i] > s->list[biggest_index])
 			biggest_index = i;
@@ -84,6 +84,7 @@ static void optimize(t_moves_set *moves)
 	moves->twin->count = *shortest;
 	*longest = *longest - *shortest;
 	*shortest = 0;
+	moves->total = moves->a->count + moves->b->count + moves->twin->count;
 }
 
 static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
@@ -102,7 +103,6 @@ static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
 		new_moves->a = get_moves_to_top(i, s->a->lenght);
 		new_moves->b = get_moves_to_top(target, s->b->lenght);
 		optimize(new_moves);
-		new_moves->total = new_moves->a->count + new_moves->b->count + new_moves->twin->count;
 		if(new_moves->total < best_moves->total){
 			free_moves_set(best_moves, NULL);
 			best_moves = new_moves;
@@ -115,17 +115,17 @@ static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
 
 void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 {
+	int i;
+	int rotation_count;
 	(void)stack;
 	t_moves_set *moves;
-	// int i;
 
 	b->push();
 	b->push();
-	// if(b->list[0] < b->list[1])
-	// 	b->swap();
+	if(b->list[0] < b->list[1])
+		b->swap();
 	while(a->lenght > 3)
 	{
-		// ft_printf("LENGHT = %i\n",a->lenght);
 		moves = get_cheapest_moves_set(stack);
 		translate_moves(moves, stack);
 		exec(moves->twin);
@@ -134,15 +134,18 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		free_moves_set(moves, NULL);
 		b->push();
 	}
-	// i = b->lenght;
-	// while(i > 0)
-	// {
-	// 	if(b->list[i] > b->list[i -1])
-	// 	{
-	// 		b->rotate();
-	// 		i = b->lenght;
-	// 		// continue;
-	// 	}
-	// 	i--;
-	// }
+	i = b->lenght - 1;
+	rotation_count = 0;
+	while(i > 0 && rotation_count < b->lenght * 2)
+	{
+		if(b->list[i] > b->list[i - 1])
+		{
+			b->rotate();
+			rotation_count++;
+			i = b->lenght - 1;
+			continue;
+		}
+		rotation_count++;
+		i--;
+	}
 }
