@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   methods_b.c                                        :+:      :+:    :+:   */
+/*   ordering_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 14:35:50 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/08 15:41:34 by rceschel         ###   ########.fr       */
+/*   Created: 2025/04/08 14:45:19 by rceschel          #+#    #+#             */
+/*   Updated: 2025/04/08 15:36:47 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/push_swap.h"
-#include "../headers/stack_utils.h"
+#ifndef ORDERING_UTILS_H
+# define ORDERING_UTILS_H
+# include "../headers/stack_utils.h"
 
-void	sb(void)
-{
-	swap(get_address('b'));
-	ft_printf("sb\n");
-}
+void free_moves_set(t_moves_set *moves, t_moves_set *comparison);
+void exec(t_moves *moves);
+void translate_moves(t_moves_set *moves, t_stack_compose *stack);
 
-void	pb(void)
-{
-	push(get_address('b'), get_address('a'));
-	ft_printf("pb\n");
-}
-
-void	rb(void)
-{
-	rotate(get_address('b'));
-	ft_printf("rb\n");
-}
-
-void	rrb(void)
-{
-	rev_rotate(get_address('b'));
-	ft_printf("rrb\n");
-}
+#endif

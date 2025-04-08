@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 15:30:42 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:19:10 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@ t_moves *new_moves(void)
 	t_moves *moves;
 
 	moves = ft_calloc(1, sizeof(t_moves));
-	moves->direction = 2;
+	moves->dir = 2;
 	moves->count = 0;
 	return(moves);
 }
 
-t_moves_set new_moves_set(void)
+t_moves_set *new_moves_set(void)
 {
-	t_moves_set moves_set;
+	t_moves_set *moves_set;
 
-	moves_set.a = new_moves();
-	moves_set.b = new_moves();
-	moves_set.twin = new_moves();
-	moves_set.total = 0;
+	moves_set = ft_calloc(1, sizeof(t_moves_set));
+	moves_set->a = new_moves();
+	moves_set->b = new_moves();
+	moves_set->twin = new_moves();
+	moves_set->total = 0;
 	return (moves_set);
 }
 
@@ -53,6 +54,22 @@ t_stack	*new_stack(void)
 	stack->lenght = 0;
 	return (stack);
 }
+
+// t_stack	*new_stack(int name, int size)
+// {
+// 	t_stack	*stack;
+
+// 	stack = ft_calloc(1, sizeof(t_stack));
+// 	if (!stack)
+// 		exit_error();
+// 	get_address('s', name, stack);
+// 	stack->list = ft_calloc(size, sizeof(long));
+// 	if(!stack->list)
+// 		exit_error();
+// 	stack->size = size;
+// 	stack->lenght = 0;
+// 	return (stack);
+// }
 
 t_stack_compose	new_stack_compose(void)
 {

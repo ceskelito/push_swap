@@ -10,15 +10,14 @@ UTILS_DIR	:= utils
 LIB 		:= LIBFT/libft.a
 
 ifeq ($(MODE), debug)
-NAME = debug.out
 ARGS = "1 2 3 4 5 6 7 8 9"
 run: all
-	@valgrind --leak-check=full --track-origins=yes ./$(NAME) $(ARGS) > valout 2>&1
+	@valgrind --leak-check=full --track-origins=yes ./$(NAME) $(ARGS) > valout.py 2>&1
 endif
 
-SOURCES_NAMES = push_swap.c moves.c ordering.c
+SOURCES_NAMES = push_swap.c moves.c ordering.c parser.c
 SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))
-UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c stack_utils.c
+UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c stack_utils.c ordering_utils.c
 UTILS = $(addprefix $(UTILS_DIR)/, $(UTILS_NAMES))
 
 SOURCES_OBJECTS = $(addprefix $(OBJS_DIR)/, $(SOURCES_NAMES:.c=.o))

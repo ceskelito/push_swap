@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 19:45:47 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:22:47 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void free_string_array(char **string_stack, int exit)
 	if(string_stack)
 		free(string_stack);
 	if(exit)
-		exit_error;
+		exit_error();
 }
 
-static int count_words(char **stack)
+static int count_and_check(char **stack)
 {
 	int	i;
 	int	j;
@@ -58,7 +58,7 @@ static int count_words(char **stack)
 		while(stack[i][j])
 		{
 			if(!(ft_isdigit(stack[i][j]) || 
-				stack[i][j] != '+' || stack[i][j] != '-'))
+				stack[i][j] == '+' || stack[i][j] == '-'))
 			{
 				free_string_array(stack, 0);
 				exit_error();
@@ -76,13 +76,15 @@ static void fill_stack(t_stack *stack, char **string_stack)
 	int j;
 	int len;
 
-	len = count_words(string_stack);
+	len = count_and_check(string_stack);
 	stack->list = ft_calloc(len, sizeof(long));
+	if(!stack->list)
+		exit(EXIT_FAILURE);
 	i = 0;
 	while(string_stack[i])
 	{
 		stack->list[i] = ft_atol(string_stack[i]);
-		if(stack->list[i] != (int)stack->list[i]);
+		if(stack->list[i] != (int)stack->list[i])
 			free_string_array(string_stack, 1);
 		j = i;
 		while (--j >= 0)
@@ -94,13 +96,16 @@ static void fill_stack(t_stack *stack, char **string_stack)
 	stack->lenght = len;
 }
 
-t_stack *get_first_stack(char **args)
+t_stack *create_stack(char **args)
 {
 	char 	**string_stack;
+	char	*joined;
 	t_stack	*stack;
-	
+
 	stack = new_stack();
-	string_stack = ft_split(join_args(args), ' ');
+	joined = join_args(args);
+	string_stack = ft_split(joined, ' ');
+	free(joined);
 	fill_stack(stack, string_stack);
 	free_string_array(string_stack, 0);
 	return (stack);

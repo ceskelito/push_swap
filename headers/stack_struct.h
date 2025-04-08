@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 13:54:54 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/08 13:42:17 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdbool.h>
 
 /*
-direction : 0 = to_exec : rotate()
-direction : 1 = to_exec : rev_rotate()
-direction : 2 = to_exec : depend to the other.
+dir : 0 = to_exec : rotate()
+dir : 1 = to_exec : rev_rotate()
+dir : 2 = to_exec : depend to the other.
 Default : rotate() 
 */
 typedef struct s_moves
@@ -26,7 +26,7 @@ typedef struct s_moves
 	int		count;
 	union
 	{
-		int 	direction;
+		int 	dir;
 		void	(*to_exec)(void);
 	};
 }			t_moves;
@@ -44,6 +44,7 @@ typedef struct s_stack
 	long			*list;
 	int				lenght;
 	int				size;
+	long			max[3];
 
 	void			(*swap)(void);
 	void			(*push)(void);

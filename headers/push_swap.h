@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:17 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 19:45:25 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/08 10:50:51 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	rev_rotate(t_stack *stack);
 
 /**********UTILS********/
 void	exit_error(void);
-t_stack *get_first_stack(char **args);
+t_stack *create_stack(char **args);
 
 
 /**********ALGO*********/
