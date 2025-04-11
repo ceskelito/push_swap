@@ -6,14 +6,14 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:17 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/08 10:50:51 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:03:37 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include <limits.h>
+# include <limits.h>
 # include "../LIBFT/headers/libft.h"
 # include "stack_struct.h"
 
