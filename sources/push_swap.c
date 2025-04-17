@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/11 12:03:54 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/17 20:09:21 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int	main(int argc, char **argv)
 	stack = new_stack_compose();
 	free(stack.a);
 	stack.a = create_stack(argv);
+	stack.a->swap = sa;
+	stack.a->push = pa;
+	stack.a->rotate = ra;
+	stack.a->rev_rotate = rra;
 	get_address('s', 'a', stack.a);
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
