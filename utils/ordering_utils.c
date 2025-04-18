@@ -3,6 +3,25 @@
 
 void	exit_error(void);
 
+t_moves *get_moves_to_top(int index_from, int lenght)
+{
+	t_moves *moves;
+	moves = new_moves();
+	if (index_from > lenght / 2)
+	{
+		moves->count = lenght - index_from;
+		moves->dir = 1;
+	}
+	else
+	{
+		moves->count = index_from;
+		moves->dir = 0;
+		if(lenght % 2 == 0 && index_from == lenght / 2)
+			moves->dir = 2;
+	}
+	return (moves);
+}
+
 void free_moves_set(t_moves_set *moves)
 {
 	if(!moves)

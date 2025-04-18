@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:17 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/11 12:03:37 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:22:48 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	rev_rotate(t_stack *stack);
 /**********UTILS********/
 void	exit_error(void);
 t_stack *create_stack(char **args);
+bool 	is_sorted(t_stack *stack);
 
 
 /**********ALGO*********/

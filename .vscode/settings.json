@@ -67,6 +67,7 @@
     "ft_lib.h": "c",
     "stack_utils.h": "c",
     "algorithm": "cpp",
-    "cheapest_moves_set": "c"
+    "cheapest_moves_set": "c",
+    "ordering_utils.h": "c"
   }
 }

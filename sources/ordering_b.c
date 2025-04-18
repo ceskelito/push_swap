@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ordering.c                                         :+:      :+:    :+:   */
+/*   ordering_b.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 12:16:58 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 17:01:31 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:38:44 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,7 @@
 #include "../headers/push_swap.h"
 #include "../headers/ordering_utils.h"
 
-static t_moves *get_moves_to_top(int index_from, int lenght)
-{
-	t_moves *moves;
-	moves = new_moves();
-	if (index_from > lenght / 2)
-	{
-		moves->count = lenght - index_from;
-		moves->dir = 1;
-	}
-	else
-	{
-		moves->count = index_from;
-		moves->dir = 0;
-		if(lenght % 2 == 0 && index_from == lenght / 2)
-			moves->dir = 2;
-	}
-	return (moves);
-}
-
-static int find_target_index(int num, t_stack *s)
+static int find_target_index_b(int num, t_stack *b)
 {
 	int i;
 	int target_index;
@@ -44,18 +25,17 @@ static int find_target_index(int num, t_stack *s)
 	target_index = -1;
 	biggest_index = 0;
 	diff = INT_MAX;
-	while(i < s->lenght)
+	while(i < b->lenght)
 	{
-		if(num > s->list[i] && num - s->list[i] < diff)
+		if(num > b->list[i] && num - b->list[i] < diff)
 		{
 			target_index = i;
-			diff = num - s->list[i];
+			diff = num - b->list[i];
 		}
-		if(s->list[i] > s->list[biggest_index])
+		if(b->list[i] > b->list[biggest_index])
 			biggest_index = i;
 		i++;
 	}
-	//ft_printf("num = %i, target_index = %i\n", num, target_index);
 	if(target_index < 0)
 		return(biggest_index);
 	return(target_index);
@@ -101,7 +81,7 @@ static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
     best_moves->total = INT_MAX;
     i = 0;
     while(i < s->a->lenght){
-        target = find_target_index(s->a->list[i], s->b);
+        target = find_target_index_b(s->a->list[i], s->b);
         new_moves = new_moves_set();
 		free(new_moves->a);
 		free(new_moves->b);
@@ -125,18 +105,17 @@ void DEBUG_PRINT(char name);
 void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 {
 	int i;
-	int rotation_count;
-	(void)stack;
 	t_moves_set *moves;
 
+	if(is_sorted(a))
+		return;
 	b->push();
 	b->push();
 	if(b->list[0] < b->list[1])
 		b->swap();
-	DEBUG_PRINT('a');
-	DEBUG_PRINT('b');
-	while(a->lenght > 3)
-	{
+	while(a->lenght > 3){
+		if(is_sorted(a))
+			order_stack_a(stack);
 		moves = get_cheapest_moves_set(stack);
 		translate_moves(moves, stack);
 		exec(moves->twin);
@@ -147,19 +126,13 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		
 	}
 	i = b->lenght - 1;
-	rotation_count = 0;
-	while(i > 0 && rotation_count < b->lenght * 2)
-	{
-		if(b->list[i] > b->list[i - 1])
-		{
+	while(i < b->lenght - 1){
+		if(b->list[i] < b->list[i + 1]){
 			b->rotate();
-			rotation_count++;
-			i = b->lenght - 1;
+			i = 0;
 			continue;
 		}
-		rotation_count++;
-		i--;
+		i++;
 	}
-	DEBUG_PRINT('a');
-	DEBUG_PRINT('b');
+	order_stack_a(stack);
 }

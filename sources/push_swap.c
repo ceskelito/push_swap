@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 15:30:08 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:15:35 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,15 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
+	if(!stack.a || !stack.b)
+		exit_error();
 	free(stack.a);
 	stack.a = create_stack(argv);
-	stack.a->swap = sa;
-	stack.a->push = pa;
-	stack.a->rotate = ra;
-	stack.a->rev_rotate = rra;
-	get_address('s', 'a', stack.a);
+	if (!stack.a)
+		exit_error();
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->lenght = 0;
-	DEBUG_PRINT('a');
-	DEBUG_PRINT('b');
 	mechanical_turk(&stack, stack.a, stack.b);
-	// DEBUG_PRINT('a');
-	// DEBUG_PRINT('b');
 	free_stack(&stack);
-	
 }

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/08 11:22:47 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:12:39 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_stack *create_stack(char **args)
 	char	*joined;
 	t_stack	*stack;
 
-	stack = new_stack();
+	stack = new_stack('a');
 	joined = join_args(args);
 	string_stack = ft_split(joined, ' ');
 	free(joined);
