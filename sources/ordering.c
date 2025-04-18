@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 12:16:58 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/08 15:45:41 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:01:31 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int find_target_index(int num, t_stack *s)
 			biggest_index = i;
 		i++;
 	}
+	//ft_printf("num = %i, target_index = %i\n", num, target_index);
 	if(target_index < 0)
 		return(biggest_index);
 	return(target_index);
@@ -62,6 +63,8 @@ static int find_target_index(int num, t_stack *s)
 
 static void optimize(t_moves_set *moves)
 {
+	if(!moves)
+		return;
 	int *longest;
 	int *shortest;
 	if(moves->a->dir == 2 && moves->b->dir == 2)
@@ -89,29 +92,35 @@ static void optimize(t_moves_set *moves)
 
 static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
 {
-	int i;
-	int target;
-	t_moves_set *new_moves;
-	t_moves_set *best_moves;
+    int i;
+    int target;
+    t_moves_set *new_moves;
+    t_moves_set *best_moves;
 
-	new_moves = new_moves_set();
-	best_moves = new_moves_set();
-	best_moves->total = INT_MAX;
-	i = 0;
-	while(i < s->a->lenght){
-		target = find_target_index(s->a->list[i], s->b);
-		new_moves->a = get_moves_to_top(i, s->a->lenght);
-		new_moves->b = get_moves_to_top(target, s->b->lenght);
-		optimize(new_moves);
-		if(new_moves->total < best_moves->total){
-			free_moves_set(best_moves, NULL);
-			best_moves = new_moves;
-		}
-		i++;
-	}
-	free_moves_set(new_moves, best_moves);
-	return (best_moves);
+    best_moves = new_moves_set();
+    best_moves->total = INT_MAX;
+    i = 0;
+    while(i < s->a->lenght){
+        target = find_target_index(s->a->list[i], s->b);
+        new_moves = new_moves_set();
+		free(new_moves->a);
+		free(new_moves->b);
+        new_moves->a = get_moves_to_top(i, s->a->lenght);
+        new_moves->b = get_moves_to_top(target, s->b->lenght);
+        optimize(new_moves);
+        if(new_moves->total < best_moves->total){
+            free_moves_set(best_moves);
+            best_moves = new_moves;
+
+        }
+		else
+            free_moves_set(new_moves);
+        i++;
+    }
+    return (best_moves);
 }
+
+void DEBUG_PRINT(char name);
 
 void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 {
@@ -124,6 +133,8 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 	b->push();
 	if(b->list[0] < b->list[1])
 		b->swap();
+	DEBUG_PRINT('a');
+	DEBUG_PRINT('b');
 	while(a->lenght > 3)
 	{
 		moves = get_cheapest_moves_set(stack);
@@ -131,8 +142,9 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		exec(moves->twin);
 		exec(moves->a);
 		exec(moves->b);
-		free_moves_set(moves, NULL);
+		free_moves_set(moves);
 		b->push();
+		
 	}
 	i = b->lenght - 1;
 	rotation_count = 0;
@@ -148,4 +160,6 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		rotation_count++;
 		i--;
 	}
+	DEBUG_PRINT('a');
+	DEBUG_PRINT('b');
 }

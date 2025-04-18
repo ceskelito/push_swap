@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/17 20:09:21 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:30:08 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 void	DEBUG_PRINT(char name)
 {
 	t_stack *stack = get_address(name);
-	ft_printf("\n----start----\n");
+	ft_printf("\n---%c---%c---%c---\n", name, name, name);
 	/* ft_printf("%c.lenght = %i\n", name, stack->lenght);
 	ft_printf("%c.size = %i\n", name, stack->size); */
 	for (int i = 0; i < stack->lenght; i++)
 		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
-	ft_printf("-----end-----\n");
+	ft_printf("---%c---%c---%c---\n", name, name, name);
 }
 
 static void free_stack(t_stack_compose *stack)
@@ -57,11 +57,11 @@ int	main(int argc, char **argv)
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->lenght = 0;
-	// DEBUG_PRINT('a');
-	// DEBUG_PRINT('b');
-	mechanical_turk(&stack, stack.a, stack.b);
 	DEBUG_PRINT('a');
 	DEBUG_PRINT('b');
+	mechanical_turk(&stack, stack.a, stack.b);
+	// DEBUG_PRINT('a');
+	// DEBUG_PRINT('b');
 	free_stack(&stack);
 	
 }

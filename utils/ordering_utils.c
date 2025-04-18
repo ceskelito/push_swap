@@ -3,25 +3,15 @@
 
 void	exit_error(void);
 
-static void free_if_different(void *to_free, void *comparison)
+void free_moves_set(t_moves_set *moves)
 {
-	if(to_free != comparison)
-		free(to_free);
-}
-
-void free_moves_set(t_moves_set *moves, t_moves_set *comparison)
-{
-	if(!comparison)
-	{
-		free(moves->a);
-		free(moves->b);
-		free(moves->twin);
+	if(!moves)
 		return;
-	}
-	free_if_different(moves->a, comparison->a);
-	free_if_different(moves->b, comparison->b);
-	free_if_different(moves->twin, comparison->twin);
-}
+	free(moves->a);
+	free(moves->b);
+	free(moves->twin);
+	free(moves);
+}	
 void exec(t_moves *moves)
 {
 	if(!moves || !moves->to_exec)

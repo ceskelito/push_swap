@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:09 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/11 12:03:48 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:09:48 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	rr(void);
 void	rrr(void);
 
 /*********CONSTRUCTORS********/
-t_stack			*new_stack(void);
+t_stack			*new_stack(char name);
 t_stack_compose	new_stack_compose(void);
 t_moves 		*new_moves(void);
 t_moves_set		*new_moves_set(void);

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/11 12:03:45 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:09:00 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ Default : rotate()
 typedef struct s_moves
 {
 	int		count;
-	union
-	{
-		int 	dir;
-		void	(*to_exec)(void);
-	};
+	int 	dir;
+	void	(*to_exec)(void);
 }			t_moves;
 
 typedef struct s_moves_set

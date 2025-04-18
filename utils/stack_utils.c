@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/08 14:19:10 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:09:36 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,36 +42,7 @@ t_moves_set *new_moves_set(void)
 	return (moves_set);
 }
 
-t_stack	*new_stack(void)
-{
-	t_stack	*stack;
-
-	stack = ft_calloc(1, sizeof(t_stack));
-	if (!stack)
-		exit_error();
-	stack->list = NULL;
-	stack->size = 0;
-	stack->lenght = 0;
-	return (stack);
-}
-
-// t_stack	*new_stack(int name, int size)
-// {
-// 	t_stack	*stack;
-
-// 	stack = ft_calloc(1, sizeof(t_stack));
-// 	if (!stack)
-// 		exit_error();
-// 	get_address('s', name, stack);
-// 	stack->list = ft_calloc(size, sizeof(long));
-// 	if(!stack->list)
-// 		exit_error();
-// 	stack->size = size;
-// 	stack->lenght = 0;
-// 	return (stack);
-// }
-
-t_stack_compose	new_stack_compose(void)
+t_stack_compose	new_stack_compose_old(void)
 {
 	t_stack_compose	stack;
 
@@ -90,6 +61,58 @@ t_stack_compose	new_stack_compose(void)
 	stack.b->push = pb;
 	stack.b->rotate = rb;
 	stack.b->rev_rotate = rrb;
+	return (stack);
+}
+
+t_stack	*new_stack_old(void)
+{
+	t_stack	*stack;
+
+	stack = ft_calloc(1, sizeof(t_stack));
+	if (!stack)
+		exit_error();
+	stack->list = NULL;
+	stack->size = 0;
+	stack->lenght = 0;
+	return (stack);
+}
+
+t_stack *new_stack(char name)
+{
+	t_stack	*stack;
+	stack = ft_calloc(1, sizeof(t_stack));
+	if (!stack)
+		exit_error();
+	stack->list = NULL;
+	stack->size = 0;
+	stack->lenght = 0;
+	if(name == 'a') {
+		stack->swap = sa;
+		stack->push = pa;
+		stack->rotate = ra;
+		stack->rev_rotate = rra;
+	}
+	else if(name == 'b') {
+		stack->swap = sb;
+		stack->push = pb;
+		stack->rotate = rb;
+		stack->rev_rotate = rrb;
+	}
+	else
+		exit_error();
+	get_address('s', name, stack);
+	return (stack);
+}
+
+t_stack_compose	new_stack_compose(void)
+{
+	t_stack_compose	stack;
+
+	stack.ss = ss;
+	stack.rr = rr;
+	stack.rrr = rrr;
+	stack.a = new_stack('a');
+	stack.b = new_stack('b');
 	return (stack);
 }
 
