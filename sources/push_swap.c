@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 17:15:35 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:22:56 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void	DEBUG_PRINT(char name)
 
 static void free_stack(t_stack_compose *stack)
 {
+	if (!stack)
+		return;
 	if (stack->a)
 	{
+		ft_printf("%p\n", stack->a->list);
 		if (stack->a->list)
 			free(stack->a->list);
 		free(stack->a);

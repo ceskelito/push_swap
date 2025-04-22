@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:21:55 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 12:40:08 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:49:52 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 static void order_three_nums(t_stack *a)
 {
+    if(is_sorted(a)){
+        return;
+    }
 	if(a->lenght > 3)
-		exit_error();
+        exit_error();
 	if (a->list[0] > a->list[1] && a->list[1] < a->list[2])
 	{
 		if (a->list[0] < a->list[2])
@@ -54,13 +57,36 @@ static int find_target_index_a(int num, t_stack *a)
     return target_index;
 }
 
+static void last_ordering_a(t_stack *a)
+{
+    int min_index = 0;
+    int i = 1;
+    
+    if(is_sorted(a)){
+        return;
+    }
+	while (i < a->lenght) {
+        if (a->list[i] < a->list[min_index])
+            min_index = i;
+        i++;
+    }
+    if (min_index <= a->lenght / 2) {
+        while (min_index-- > 0)
+            a->rotate();
+    }
+    else {
+        int count = a->lenght - min_index;
+        while (count-- > 0)
+            a->rev_rotate();
+    }
+}
+
 void DEBUG_PRINT(char name);
 
 void order_stack_a(t_stack_compose *stack)
 {
 	t_moves_set	*moves;
 	int			target;
-	int  		i;
 
 	order_three_nums(stack->a);
 	while(stack->b->lenght > 0){
@@ -72,26 +98,9 @@ void order_stack_a(t_stack_compose *stack)
 		exec(moves, "a");
 		stack->a->push();
 	}
-	i = 0;
-	while(i < stack->a->lenght - 1){
-		if(stack->a->list[i] > stack->a->list[i + 1]){
-			moves->a = get_moves_to_top(i + i, stack->a->lenght);
-			translate_moves(moves, stack, "a");
-			exec(moves, "a");
-		}
-		i++;
-	}
-	i = stack->a->lenght;
-	while(i > 1){
-		if(stack->a->list[i] < stack->a->list[i - 1]){
-			moves->a = get_moves_to_top(i + i, stack->a->lenght);
-			translate_moves(moves, stack, "a");
-			exec(moves, "a");
-		}
-		i--;
-	}
-	free_moves_set(moves, "a");
-	DEBUG_PRINT('a');
-	DEBUG_PRINT('b');
+	last_ordering_a(stack->a);
+	// free_moves_set(moves, "a");
+	// DEBUG_PRINT('a');
+	// DEBUG_PRINT('b');
 
 }

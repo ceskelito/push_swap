@@ -60,7 +60,7 @@ void exec(t_moves_set *moves, char *names)
 static void translate_moves_single(t_moves_single *moves, t_stack *stack_name)
 {
 	if(!moves || !stack_name)
-		exit_error();
+		return;
 	if(moves->dir == 0 || moves->dir == 2)
 		moves->to_exec = stack_name->rotate;
 	else
