@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 17:35:49 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:45:59 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,11 @@ int	main(int argc, char **argv)
 	stack.b->size = stack.a->size;
 	stack.b->lenght = 0;
 	mechanical_turk(&stack, stack.a, stack.b);
+	int i = 0;
+	while(i < stack.a->lenght)
+	{
+		ft_printf("%i\n", stack.a->list[i]);
+		i++;
+	}
 	free_stack(&stack);
 }

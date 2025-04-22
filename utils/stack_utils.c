@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 17:05:11 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:40:44 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ t_moves_set *new_moves_set(void)
 	t_moves_set *moves_set;
 
 	moves_set = ft_calloc(1, sizeof(t_moves_set));
-	// moves_set->a = new_moves();
-	// moves_set->b = new_moves();
 	moves_set->twin = new_moves();
 	moves_set->total = 0;
 	return (moves_set);
