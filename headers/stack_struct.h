@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 17:09:00 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:48:50 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ typedef struct s_moves
 	int		count;
 	int 	dir;
 	void	(*to_exec)(void);
-}			t_moves;
+}			t_moves_single;
 
 typedef struct s_moves_set
 {
-	t_moves *a;
-	t_moves *b;
-	t_moves *twin;
+	t_moves_single *a;
+	t_moves_single *b;
+	t_moves_single *twin;
 	int		total;
 }				t_moves_set;
 

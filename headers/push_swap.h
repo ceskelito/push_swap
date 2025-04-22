@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:17 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 17:22:48 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:04:51 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <limits.h>
 # include "../LIBFT/headers/libft.h"
 # include "stack_struct.h"
+# include "stack_utils.h"
+# include "ordering_utils.h"
 
 /**********MOVES*********/
 void	swap(t_stack *stack);

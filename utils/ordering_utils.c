@@ -3,9 +3,9 @@
 
 void	exit_error(void);
 
-t_moves *get_moves_to_top(int index_from, int lenght)
+t_moves_single *get_moves_to_top(int index_from, int lenght)
 {
-	t_moves *moves;
+	t_moves_single *moves;
 	moves = new_moves();
 	if (index_from > lenght / 2)
 	{
@@ -22,16 +22,20 @@ t_moves *get_moves_to_top(int index_from, int lenght)
 	return (moves);
 }
 
-void free_moves_set(t_moves_set *moves)
+void free_moves_set(t_moves_set *moves, char *names)
 {
 	if(!moves)
 		return;
-	free(moves->a);
-	free(moves->b);
-	free(moves->twin);
+	if(ft_strchr(names, 'a'))
+		free(moves->a);
+	if(ft_strchr(names, 'b'))
+		free(moves->b);
+	if(ft_strchr(names, 't'))
+		free(moves->twin);
 	free(moves);
-}	
-void exec(t_moves *moves)
+}
+
+static void exec_single(t_moves_single *moves)
 {
 	if(!moves || !moves->to_exec)
 		return;
@@ -41,23 +45,39 @@ void exec(t_moves *moves)
 		moves->count--;
 	}
 }
-
-static void translate_moves_single(t_moves *moves_set, t_stack *stack_name)
+void exec(t_moves_set *moves, char *names)
 {
-	if(!moves_set || !stack_name)
-		exit_error();
-	if(moves_set->dir == 0 || moves_set->dir == 2)
-		moves_set->to_exec = stack_name->rotate;
-	else
-		moves_set->to_exec = stack_name->rev_rotate;
+	if(!moves)
+		return;
+	if(ft_strchr(names, 't'))
+		exec_single(moves->twin);
+	if(ft_strchr(names, 'a'))
+		exec_single(moves->a);
+	if(ft_strchr(names, 'b'))
+		exec_single(moves->b);
 }
 
-void translate_moves(t_moves_set *moves, t_stack_compose *stack)
+static void translate_moves_single(t_moves_single *moves, t_stack *stack_name)
 {
-	translate_moves_single(moves->a, stack->a);
-	translate_moves_single(moves->b, stack->b);
-	if(moves->twin->dir == 0 || moves->twin->dir == 2)
-		moves->twin->to_exec = rr;
+	if(!moves || !stack_name)
+		exit_error();
+	if(moves->dir == 0 || moves->dir == 2)
+		moves->to_exec = stack_name->rotate;
 	else
-		moves->twin->to_exec = rrr;
+		moves->to_exec = stack_name->rev_rotate;
+}
+
+void translate_moves(t_moves_set *moves_set, t_stack_compose *stack, char *names)
+{
+	if(ft_strchr(names, 'a'))
+		translate_moves_single(moves_set->a, stack->a);
+	if(ft_strchr(names, 'b'))
+		translate_moves_single(moves_set->b, stack->b);
+	if(ft_strchr(names, 't'))
+	{
+		if(moves_set->twin->dir == 0 || moves_set->twin->dir == 2)
+			moves_set->twin->to_exec = rr;
+		else
+			moves_set->twin->to_exec = rrr;
+	}
 }

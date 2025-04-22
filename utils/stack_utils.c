@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 18:34:31 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:48:50 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	exit_error(void);
 
 /*********COSTRUCTORS**********/
 
-t_moves *new_moves(void)
+t_moves_single *new_moves(void)
 {
-	t_moves *moves;
+	t_moves_single *moves;
 
-	moves = ft_calloc(1, sizeof(t_moves));
+	moves = ft_calloc(1, sizeof(t_moves_single));
 	moves->dir = 2;
 	moves->count = 0;
 	return(moves);

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 12:16:58 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 18:38:44 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:27:17 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ static t_moves_set *get_cheapest_moves_set(t_stack_compose *s)
         new_moves->b = get_moves_to_top(target, s->b->lenght);
         optimize(new_moves);
         if(new_moves->total < best_moves->total){
-            free_moves_set(best_moves);
+            free_moves_set(best_moves, "abt");
             best_moves = new_moves;
 
         }
 		else
-            free_moves_set(new_moves);
+            free_moves_set(new_moves, "abt");
         i++;
     }
     return (best_moves);
@@ -117,11 +117,9 @@ void mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 		if(is_sorted(a))
 			order_stack_a(stack);
 		moves = get_cheapest_moves_set(stack);
-		translate_moves(moves, stack);
-		exec(moves->twin);
-		exec(moves->a);
-		exec(moves->b);
-		free_moves_set(moves);
+		translate_moves(moves, stack, "abt");
+		exec(moves, "abt");
+		free_moves_set(moves, "abt");
 		b->push();
 		
 	}

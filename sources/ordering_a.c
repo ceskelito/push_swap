@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:21:55 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 19:10:49 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:40:08 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,34 @@ void order_stack_a(t_stack_compose *stack)
 	int  		i;
 
 	order_three_nums(stack->a);
-	while(stack->b->lenght > 0)
-	{
+	while(stack->b->lenght > 0){
 		target = find_target_index_a(stack->b->list[0], stack->a);
 		moves = new_moves_set();
 		free(moves->a);
 		moves->a = get_moves_to_top(target, stack->a->lenght);
-		translate_moves(moves, stack);
-		exec(moves->a);
-		free_moves_set(moves);
+		translate_moves(moves, stack, "a");
+		exec(moves, "a");
 		stack->a->push();
 	}
 	i = 0;
 	while(i < stack->a->lenght - 1){
 		if(stack->a->list[i] > stack->a->list[i + 1]){
-			stack->a->rotate();
-			i = 0;
-			continue;
+			moves->a = get_moves_to_top(i + i, stack->a->lenght);
+			translate_moves(moves, stack, "a");
+			exec(moves, "a");
 		}
 		i++;
 	}
+	i = stack->a->lenght;
+	while(i > 1){
+		if(stack->a->list[i] < stack->a->list[i - 1]){
+			moves->a = get_moves_to_top(i + i, stack->a->lenght);
+			translate_moves(moves, stack, "a");
+			exec(moves, "a");
+		}
+		i--;
+	}
+	free_moves_set(moves, "a");
 	DEBUG_PRINT('a');
 	DEBUG_PRINT('b');
 
