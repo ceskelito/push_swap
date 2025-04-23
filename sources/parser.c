@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 18:38:35 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:53:51 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ static char	*join_args(char **args)
 	i = 0;
 	while (str[++i])
 		if (str[i] == '+' || str[i] == '-')
+		{
+			if(str[i + 1] && !ft_isdigit(str[i + 1]))
+				exit_msg("Error\n");
 			if (str[i - 1] == '+' || str[i - 1] == '-')
 				exit_msg("Error\n");
+		}
 	return (str);
 }
 
