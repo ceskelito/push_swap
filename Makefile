@@ -17,7 +17,7 @@ endif
 
 SOURCES_NAMES = push_swap.c parser.c moves.c ordering_b.c ordering_a.c 
 SOURCES = $(addprefix $(SRCS_DIR)/, $(SOURCES_NAMES))
-UTILS_NAMES = methods_a.c methods_b.c methods_double.c utils.c stack_utils.c ordering_utils.c
+UTILS_NAMES = methods_a.c methods_b.c methods_twin.c utils.c stack_utils.c ordering_utils.c
 UTILS = $(addprefix $(UTILS_DIR)/, $(UTILS_NAMES))
 
 SOURCES_OBJECTS = $(addprefix $(OBJS_DIR)/, $(SOURCES_NAMES:.c=.o))

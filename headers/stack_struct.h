@@ -19,22 +19,22 @@
 dir : 0 = to_exec : rotate()
 dir : 1 = to_exec : rev_rotate()
 dir : 2 = to_exec : depend to the other.
-Default : rotate() 
+Default : rotate()
 */
 typedef struct s_moves
 {
-	int		count;
-	int 	dir;
-	void	(*to_exec)(void);
-}			t_moves_single;
+	int				count;
+	int				dir;
+	void			(*to_exec)(void);
+}					t_moves_single;
 
 typedef struct s_moves_set
 {
-	t_moves_single *a;
-	t_moves_single *b;
-	t_moves_single *twin;
-	int		total;
-}				t_moves_set;
+	t_moves_single	*a;
+	t_moves_single	*b;
+	t_moves_single	*twin;
+	int				total;
+}					t_moves_set;
 
 typedef struct s_stack
 {
@@ -54,9 +54,9 @@ typedef struct s_stack_compose
 	t_stack			*a;
 	t_stack			*b;
 
-	void	(*ss)(void);
-	void	(*rr)(void);
-	void	(*rrr)(void);
+	void			(*ss)(void);
+	void			(*rr)(void);
+	void			(*rrr)(void);
 }					t_stack_compose;
 
 #endif

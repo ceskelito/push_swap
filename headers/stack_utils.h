@@ -13,32 +13,31 @@
 #ifndef STACK_UTILS_H
 # define STACK_UTILS_H
 
-#include "../headers/stack_struct.h"
+# include "../headers/stack_struct.h"
 
 /*********METHODS********/
-void	sa(void);
-void	pa(void);
-void	ra(void);
-void	rra(void);
+void			sa(void);
+void			pa(void);
+void			ra(void);
+void			rra(void);
 
-void	sb(void);
-void	pb(void);
-void	rb(void);
-void	rrb(void);
+void			sb(void);
+void			pb(void);
+void			rb(void);
+void			rrb(void);
 
-void	ss(void);
-void	rr(void);
-void	rrr(void);
+void			ss(void);
+void			rr(void);
+void			rrr(void);
 
 /*********CONSTRUCTORS********/
 t_stack			*new_stack(char name);
 t_stack_compose	new_stack_compose(void);
-t_moves_single 		*new_moves(void);
+t_moves_single	*new_moves(void);
 t_moves_set		*new_moves_set(void);
 
-
 /*********UTILS*********/
-t_stack	*get_address(int stack_name, ...);
-void	swap_values(long *a, long *b);
+t_stack			*get_address(int stack_name, ...);
+void			swap_values(long *a, long *b);
 
 #endif

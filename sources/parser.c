@@ -6,14 +6,14 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/18 17:12:39 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 11:20:20 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
-static char *join_args(char **args)
+static char	*join_args(char **args)
 {
 	char	*str;
 	char	*tmp;
@@ -30,38 +30,38 @@ static char *join_args(char **args)
 	return (str);
 }
 
-static void free_string_array(char **string_stack, int exit)
+static void	free_string_array(char **string_stack, int exit)
 {
 	int	i;
 
 	i = 0;
-	while(string_stack[i])
+	while (string_stack[i])
 	{
 		free(string_stack[i]);
 		i++;
 	}
-	if(string_stack)
+	if (string_stack)
 		free(string_stack);
-	if(exit)
-		exit_error();
+	if (exit)
+		exit_msg("Error");
 }
 
-static int count_and_check(char **stack)
+static int	count_and_check(char **stack)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while(stack[i])
+	while (stack[i])
 	{
 		j = 0;
-		while(stack[i][j])
+		while (stack[i][j])
 		{
-			if(!(ft_isdigit(stack[i][j]) || 
-				stack[i][j] == '+' || stack[i][j] == '-'))
+			if (!(ft_isdigit(stack[i][j]) || stack[i][j] == '+'
+					|| stack[i][j] == '-'))
 			{
 				free_string_array(stack, 0);
-				exit_error();
+				exit_msg("Error");
 			}
 			j++;
 		}
@@ -70,21 +70,21 @@ static int count_and_check(char **stack)
 	return (i);
 }
 
-static void fill_stack(t_stack *stack, char **string_stack)
+static void	fill_stack(t_stack *stack, char **string_stack)
 {
-	int i;
-	int j;
-	int len;
+	int	i;
+	int	j;
+	int	len;
 
 	len = count_and_check(string_stack);
 	stack->list = ft_calloc(len, sizeof(long));
-	if(!stack->list)
+	if (!stack->list)
 		exit(EXIT_FAILURE);
 	i = 0;
-	while(string_stack[i])
+	while (string_stack[i])
 	{
 		stack->list[i] = ft_atol(string_stack[i]);
-		if(stack->list[i] != (int)stack->list[i])
+		if (stack->list[i] != (int)stack->list[i])
 			free_string_array(string_stack, 1);
 		j = i;
 		while (--j >= 0)
@@ -96,11 +96,11 @@ static void fill_stack(t_stack *stack, char **string_stack)
 	stack->lenght = len;
 }
 
-t_stack *create_stack(char **args)
+t_stack	*create_stack(char **args)
 {
-	char 	**string_stack;
-	char	*joined;
-	t_stack	*stack;
+	char **string_stack;
+	char *joined;
+	t_stack *stack;
 
 	stack = new_stack('a');
 	joined = join_args(args);

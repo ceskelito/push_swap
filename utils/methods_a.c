@@ -6,12 +6,11 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:35:53 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 15:13:20 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:27:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
-#include "../headers/stack_utils.h"
 
 void	sa(void)
 {

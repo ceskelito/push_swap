@@ -36,7 +36,6 @@ void	push(t_stack *dest, t_stack *src)
 	src->list[0] = 0;
 	rotate(src);
 	src->lenght--;
-	
 }
 
 void	rotate(t_stack *stack)

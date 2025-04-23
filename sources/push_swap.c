@@ -6,28 +6,28 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 17:45:59 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:25:29 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
-void	DEBUG_PRINT(char name)
-{
-	t_stack *stack = get_address(name);
-	ft_printf("\n---%c---%c---%c---\n", name, name, name);
-	/* ft_printf("%c.lenght = %i\n", name, stack->lenght);
-	ft_printf("%c.size = %i\n", name, stack->size); */
-	for (int i = 0; i < stack->lenght; i++)
-		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
-	ft_printf("---%c---%c---%c---\n", name, name, name);
-}
+// void	DEBUG_PRINT(char name)
+// {
+// 	t_stack *stack = get_address(name);
+// 	ft_printf("\n---%c---%c---%c---\n", name, name, name);
+// 	/* ft_printf("%c.lenght = %i\n", name, stack->lenght);
+// 	ft_printf("%c.size = %i\n", name, stack->size); */
+// 	for (int i = 0; i < stack->lenght; i++)
+// 		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
+// 	ft_printf("---%c---%c---%c---\n", name, name, name);
+// }
 
-static void free_stack(t_stack_compose *stack)
+static void	free_stack(t_stack_compose *stack)
 {
 	if (!stack)
-		return;
+		return ;
 	if (stack->a)
 	{
 		if (stack->a->list)
@@ -49,21 +49,15 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
-	if(!stack.a || !stack.b)
-		exit_error();
+	if (!stack.a || !stack.b)
+		exit_msg("Error");
 	free(stack.a);
 	stack.a = create_stack(argv);
 	if (!stack.a)
-		exit_error();
+		exit_msg("Error");
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->lenght = 0;
 	mechanical_turk(&stack, stack.a, stack.b);
-	int i = 0;
-	while(i < stack.a->lenght)
-	{
-		ft_printf("%i\n", stack.a->list[i]);
-		i++;
-	}
 	free_stack(&stack);
 }

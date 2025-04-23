@@ -6,62 +6,63 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 17:40:44 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 12:28:23 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/stack_struct.h"
-#include "../headers/stack_utils.h"
-#include "../LIBFT/headers/ft_lib.h"
+#include "../headers/push_swap.h"
 #include <stdarg.h>
 #include <stddef.h>
 
-void	exit_error(void);
+void			exit_msg(char *msg);
 
 /*********COSTRUCTORS**********/
 
-t_moves_single *new_moves(void)
+t_moves_single	*new_moves(void)
 {
-	t_moves_single *moves;
+	t_moves_single	*moves;
 
 	moves = ft_calloc(1, sizeof(t_moves_single));
 	moves->dir = 2;
 	moves->count = 0;
-	return(moves);
+	return (moves);
 }
 
-t_moves_set *new_moves_set(void)
+t_moves_set	*new_moves_set(void)
 {
-	t_moves_set *moves_set;
+	t_moves_set	*moves_set;
 
 	moves_set = ft_calloc(1, sizeof(t_moves_set));
 	moves_set->twin = new_moves();
 	moves_set->total = 0;
 	return (moves_set);
 }
-t_stack *new_stack(char name)
+t_stack	*new_stack(char name)
 {
 	t_stack	*stack;
+
 	stack = ft_calloc(1, sizeof(t_stack));
 	if (!stack)
-		exit_error();
+		exit_msg("Error");
 	stack->list = NULL;
 	stack->size = 0;
 	stack->lenght = 0;
-	if(name == 'a') {
+	if (name == 'a')
+	{
 		stack->swap = sa;
 		stack->push = pa;
 		stack->rotate = ra;
 		stack->rev_rotate = rra;
 	}
-	else if(name == 'b') {
+	else if (name == 'b')
+	{
 		stack->swap = sb;
 		stack->push = pb;
 		stack->rotate = rb;
 		stack->rev_rotate = rrb;
 	}
 	else
-		exit_error();
+		exit_msg("Error");
 	get_address('s', name, stack);
 	return (stack);
 }
@@ -106,15 +107,15 @@ t_stack	*get_address(int stack_name, ...)
 		else if (stack_to_set == 'b')
 			stack_b = va_arg(args, t_stack *);
 		va_end(args);
-		if((stack_to_set == 'a' && !stack_a) ||
-			(stack_to_set == 'b' && !stack_b))
-			exit_error();
+		if ((stack_to_set == 'a' && !stack_a) || (stack_to_set == 'b'
+				&& !stack_b))
+			exit_msg("Error");
 		return (NULL);
 	}
 	if (stack_name == 'a' && stack_a)
 		return (stack_a);
 	else if (stack_name == 'b' && stack_b)
 		return (stack_b);
-	exit_error();
+	exit_msg("Error");
 	return (NULL);
 }

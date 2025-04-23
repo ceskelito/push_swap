@@ -14,11 +14,11 @@
 # define ORDERING_UTILS_H
 # include "../headers/push_swap.h"
 
-void free_moves_set(t_moves_set *moves, char *names);
-void exec(t_moves_set *moves, char *names);
-void translate_moves(t_moves_set *moves, t_stack_compose *stack, char *names);
-t_moves_single *get_moves_to_top(int index_from, int lenght);
-void order_stack_a(t_stack_compose *stack);
-
+void			free_moves_set(t_moves_set *moves, char *names);
+void			exec(t_moves_set *moves, char *names);
+void			translate_moves(t_moves_set *moves, t_stack_compose *stack,
+					char *names);
+t_moves_single	*get_moves_to_top(int index_from, int lenght);
+void			order_stack_a(t_stack_compose *stack);
 
 #endif
