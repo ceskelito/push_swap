@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 14:33:12 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:38:35 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static char	*join_args(char **args)
 		str = ft_strjoin_multi(3, str, args[i], " ");
 		free(tmp);
 	}
+	i = 0;
+	while (str[++i])
+		if (str[i] == '+' || str[i] == '-')
+			if (str[i - 1] == '+' || str[i - 1] == '-')
+				exit_msg("Error\n");
 	return (str);
 }
 
@@ -43,7 +48,7 @@ static void	free_string_array(char **string_stack, int exit)
 	if (string_stack)
 		free(string_stack);
 	if (exit)
-		exit_msg("Error");
+		exit_msg("Error\n");
 }
 
 static int	count_and_check(char **stack)
@@ -61,7 +66,7 @@ static int	count_and_check(char **stack)
 					|| stack[i][j] == '-'))
 			{
 				free_string_array(stack, 0);
-				exit_msg("Error");
+				exit_msg("Error\n");
 			}
 			j++;
 		}
@@ -98,9 +103,9 @@ static void	fill_stack(t_stack *stack, char **string_stack)
 
 t_stack	*create_stack(char **args)
 {
-	char **string_stack;
-	char *joined;
-	t_stack *stack;
+	char	**string_stack;
+	char	*joined;
+	t_stack	*stack;
 
 	stack = new_stack('a');
 	joined = join_args(args);

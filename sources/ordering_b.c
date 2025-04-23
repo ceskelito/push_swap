@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "../headers/push_swap.h"
+//to avoid the norm
+#define FTIB find_target_index_b
+#define GMTT get_moves_to_top
 
 static int	find_target_index_b(int num, t_stack *b)
 {
@@ -46,8 +49,6 @@ static void	optimize(t_moves_set *moves)
 
 	if (!moves)
 		return ;
-	if (moves->a->dir == 2 && moves->b->dir == 2)
-		moves->a->dir = 1;
 	if (moves->a->dir == 2)
 		moves->a->dir = moves->b->dir;
 	if (moves->b->dir == 2)
@@ -73,7 +74,6 @@ static void	optimize(t_moves_set *moves)
 static t_moves_set	*get_cheapest_moves_set(t_stack_compose *s)
 {
 	int			i;
-	int			target;
 	t_moves_set	*new_moves;
 	t_moves_set	*best_moves;
 
@@ -82,10 +82,9 @@ static t_moves_set	*get_cheapest_moves_set(t_stack_compose *s)
 	i = 0;
 	while (i < s->a->length)
 	{
-		target = find_target_index_b(s->a->list[i], s->b);
 		new_moves = new_moves_set();
 		new_moves->a = get_moves_to_top(i, s->a->length);
-		new_moves->b = get_moves_to_top(target, s->b->length);
+		new_moves->b = GMTT(FTIB(s->a->list[i], s->b), s->b->length);
 		optimize(new_moves);
 		new_moves->total = new_moves->a->count + new_moves->b->count
 			+ new_moves->twin->count;

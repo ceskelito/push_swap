@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:35:43 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 15:51:28 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:25:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exit_msg(char *msg)
 	if (msg)
 		write(2, msg, ft_strlen(msg));
 	else
-		write(2, "Error\n\n", 7);
+		write(2, "Error\n", 7);
 	exit(EXIT_FAILURE);
 }
 

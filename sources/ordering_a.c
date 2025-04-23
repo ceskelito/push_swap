@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:21:55 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 15:51:18 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:25:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 static void	order_three_nums(t_stack *a)
 {
 	if (is_sorted(a))
-	{
 		return ;
-	}
 	if (a->length > 3)
-		exit_msg("Error\n\n");
+		exit_msg("Error\n");
 	if (a->list[0] > a->list[1] && a->list[1] > a->list[2])
 	{
 		a->swap();
@@ -31,16 +29,14 @@ static void	order_three_nums(t_stack *a)
 			a->swap();
 		else
 			a->rotate();
+		return ;
 	}
-	else if (a->list[1] > a->list[0])
+	if (a->list[0] > a->list[2])
+		a->rev_rotate();
+	else
 	{
-		if (a->list[0] > a->list[2])
-			a->rev_rotate();
-		else
-		{
-			a->rev_rotate();
-			a->swap();
-		}
+		a->rev_rotate();
+		a->swap();
 	}
 }
 
@@ -80,9 +76,7 @@ static void	last_ordering_a(t_stack *a)
 	min_index = 0;
 	i = 1;
 	if (is_sorted(a))
-	{
 		return ;
-	}
 	while (i < a->length)
 	{
 		if (a->list[i] < a->list[min_index])
@@ -109,9 +103,9 @@ void	order_stack_a(t_stack_compose *stack)
 	t_moves_set	*moves;
 	int			target;
 
-	if(stack->a->length == 3)
+	if (stack->a->length == 3)
 		order_three_nums(stack->a);
-	else if(stack->a->length == 2 && !is_sorted(stack->a))
+	else if (stack->a->length == 2 && !is_sorted(stack->a))
 		stack->a->swap();
 	moves = new_moves_set();
 	while (stack->b->length > 0)

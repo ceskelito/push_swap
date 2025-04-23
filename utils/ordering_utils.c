@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ordering_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 18:10:46 by rceschel          #+#    #+#             */
+/*   Updated: 2025/04/23 18:11:05 by rceschel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/push_swap.h"
 #include <stdlib.h>
 
@@ -24,6 +36,7 @@ static void	exec_single(t_moves_single *moves)
 		moves->count--;
 	}
 }
+
 void	exec(t_moves_set *moves, char *names)
 {
 	if (!moves)

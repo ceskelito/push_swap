@@ -29,5 +29,4 @@ void	c_ss(void);
 void	c_rr(void);
 void	c_rrr(void);
 
-
 #endif
