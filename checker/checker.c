@@ -5,15 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 14:33:54 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 15:46:11 by rceschel         ###   ########.fr       */
+/*   Created: 2025/04/23 14:33:54 by rceschel          #+#                */
+/*   Updated: 2025/04/23 16:22:07 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
+void strip_newline(char *s)
+{
+    int len = ft_strlen(s);
+    if (len > 0 && s[len - 1] == '\n')
+        s[len - 1] = '\0';
+}
+
 static void (*select_move(char *buff))(void)
 {
+    ft_printf("\"%s\"\n", buff);
+    ft_printf("%i", ft_strcmp(buff, "ra\0"));
 
     if(!ft_strcmp(buff, "sa"))
         return (c_sa);
@@ -40,25 +49,18 @@ static void (*select_move(char *buff))(void)
     return (NULL);
 }
 
-
 static void (*get_move())(void)
 {
-    int     r;
-    int     i;
-    char    c;
-    char    buff[5];
+    char *buff;
+    void (*move)(void);
 
-    i = 0;
-    c = 0;
-    while(c != '\n')
-    {
-        r = read(1, &c, 1);
-        if(r <= 0)
-            break;
-        buff[i] = c;
-        i++;
-    }
-    return (select_move(buff));
+    buff = get_next_line(0); 
+    if(!buff)
+        return (NULL);
+    strip_newline(buff);
+    move = select_move(buff);
+    free(buff);
+    return (move);
 }
 
 static void	free_stack(t_stack_compose *stack)
@@ -88,18 +90,20 @@ int main(int argc, char **argv)
 		exit(EXIT_SUCCESS);  
 	stack = new_stack_compose();
 	if (!stack.a || !stack.b)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	free(stack.a);
 	stack.a = create_stack(argv);
 	if (!stack.a)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
     stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->length = 0;  
 	move = get_move();
+    ft_printf("%p", move);
     while(move){
         move();
         move = get_move();
+        write(1, "moveee\n", 7);
     }
     if(is_sorted(stack.a))
         write(1, "OK", 2);

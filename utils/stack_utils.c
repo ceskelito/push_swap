@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 15:00:05 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 15:37:27 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:51:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_stack	*new_stack(char name)
 
 	stack = ft_calloc(1, sizeof(t_stack));
 	if (!stack)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	stack->list = NULL;
 	stack->size = 0;
 	stack->length = 0;
@@ -62,7 +62,7 @@ t_stack	*new_stack(char name)
 		stack->rev_rotate = rrb;
 	}
 	else
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	get_address('s', name, stack);
 	return (stack);
 }
@@ -109,13 +109,13 @@ t_stack	*get_address(int stack_name, ...)
 		va_end(args);
 		if ((stack_to_set == 'a' && !stack_a) || (stack_to_set == 'b'
 				&& !stack_b))
-			exit_msg("Error\n");
+			exit_msg("Error\n\n");
 		return (NULL);
 	}
 	if (stack_name == 'a' && stack_a)
 		return (stack_a);
 	else if (stack_name == 'b' && stack_b)
 		return (stack_b);
-	exit_msg("Error\n");
+	exit_msg("Error\n\n");
 	return (NULL);
 }

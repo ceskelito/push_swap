@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:21:55 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:51:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	order_three_nums(t_stack *a)
 		return ;
 	}
 	if (a->length > 3)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	if (a->list[0] > a->list[1] && a->list[1] > a->list[2])
 	{
 		a->swap();

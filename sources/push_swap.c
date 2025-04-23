@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 15:51:18 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	main(int argc, char **argv)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
 	if (!stack.a || !stack.b)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	free(stack.a);
 	stack.a = create_stack(argv);
 	if (!stack.a)
-		exit_msg("Error\n");
+		exit_msg("Error\n\n");
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->length = 0;
