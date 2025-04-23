@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:26:42 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 11:20:20 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:33:12 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	fill_stack(t_stack *stack, char **string_stack)
 		i++;
 	}
 	stack->size = len;
-	stack->lenght = len;
+	stack->length = len;
 }
 
 t_stack	*create_stack(char **args)

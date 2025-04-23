@@ -23,7 +23,7 @@ static int	find_target_index_b(int num, t_stack *b)
 	target_index = -1;
 	biggest_index = 0;
 	diff = INT_MAX;
-	while (i < b->lenght)
+	while (i < b->length)
 	{
 		if (num > b->list[i] && num - b->list[i] < diff)
 		{
@@ -80,12 +80,12 @@ static t_moves_set	*get_cheapest_moves_set(t_stack_compose *s)
 	best_moves = new_moves_set();
 	best_moves->total = INT_MAX;
 	i = 0;
-	while (i < s->a->lenght)
+	while (i < s->a->length)
 	{
 		target = find_target_index_b(s->a->list[i], s->b);
 		new_moves = new_moves_set();
-		new_moves->a = get_moves_to_top(i, s->a->lenght);
-		new_moves->b = get_moves_to_top(target, s->b->lenght);
+		new_moves->a = get_moves_to_top(i, s->a->length);
+		new_moves->b = get_moves_to_top(target, s->b->length);
 		optimize(new_moves);
 		new_moves->total = new_moves->a->count + new_moves->b->count
 			+ new_moves->twin->count;
@@ -109,20 +109,20 @@ static void	last_ordering_b(t_stack *b)
 
 	i = 1;
 	max_index = 0;
-	while (i < b->lenght)
+	while (i < b->length)
 	{
 		if (b->list[i] > b->list[max_index])
 			max_index = i;
 		i++;
 	}
-	if (max_index <= b->lenght / 2)
+	if (max_index <= b->length / 2)
 	{
 		while (max_index-- > 0)
 			b->rotate();
 	}
 	else
 	{
-		count = b->lenght - max_index;
+		count = b->length - max_index;
 		while (count-- > 0)
 			b->rev_rotate();
 	}
@@ -134,7 +134,7 @@ void	mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 
 	if (is_sorted(a))
 		return ;
-	if (a->lenght <= 3)
+	if (a->length <= 3)
 	{
 		order_stack_a(stack);
 		return ;
@@ -143,7 +143,7 @@ void	mechanical_turk(t_stack_compose *stack, t_stack *a, t_stack *b)
 	b->push();
 	if (b->list[0] < b->list[1])
 		b->swap();
-	while (a->lenght > 3)
+	while (a->length > 3)
 	{
 		if (is_sorted(a))
 			order_stack_a(stack);

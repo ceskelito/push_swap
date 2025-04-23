@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ordering_utils.h                                   :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 14:45:19 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
+/*   Created: 2025/04/23 15:13:27 by rceschel          #+#    #+#             */
+/*   Updated: 2025/04/23 15:17:17 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORDERING_UTILS_H
-# define ORDERING_UTILS_H
-# include "stack_struct.h"
+#ifndef CHECKER_H
+# define CHECKER_H
+# include "../headers/push_swap.h"
+# include <unistd.h>
 
-void			free_moves_set(t_moves_set *moves, char *names);
-void			exec(t_moves_set *moves, char *names);
-void			translate_moves(t_moves_set *moves, t_stack_compose *stack,
-					char *names);
-t_moves_single	*get_moves_to_top(int index_from, int length);
-void			order_stack_a(t_stack_compose *stack);
+void	c_sa(void);
+void	c_pa(void);
+void	c_ra(void);
+void	c_rra(void);
+
+void	c_sb(void);
+void	c_pb(void);
+void	c_rb(void);
+void	c_rrb(void);
+
+void	c_ss(void);
+void	c_rr(void);
+void	c_rrr(void);
+
 
 #endif

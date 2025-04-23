@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:36:02 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/07 15:47:50 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@ void	swap_values(long *a, long *b)
 
 void	swap(t_stack *stack)
 {
-	if (!stack || stack->lenght < 2)
+	if (!stack || stack->length < 2)
 		return ;
 	swap_values(&stack->list[0], &stack->list[1]);
 }
 
 void	push(t_stack *dest, t_stack *src)
 {
-	if (!dest || !src || src->lenght < 1)
+	if (!dest || !src || src->length < 1)
 		return ;
-	dest->lenght++;
+	dest->length++;
 	rev_rotate(dest);
 	dest->list[0] = src->list[0];
 	src->list[0] = 0;
 	rotate(src);
-	src->lenght--;
+	src->length--;
 }
 
 void	rotate(t_stack *stack)
@@ -45,7 +45,7 @@ void	rotate(t_stack *stack)
 	if (!stack)
 		return ;
 	i = 0;
-	while (i < stack->lenght - 1)
+	while (i < stack->length - 1)
 	{
 		swap_values(&stack->list[i], &stack->list[i + 1]);
 		i++;
@@ -58,7 +58,7 @@ void	rev_rotate(t_stack *stack)
 
 	if (!stack)
 		return ;
-	i = stack->lenght - 1;
+	i = stack->length - 1;
 	while (i > 0)
 	{
 		swap_values(&stack->list[i], &stack->list[i - 1]);

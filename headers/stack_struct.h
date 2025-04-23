@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:06:29 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/22 11:48:50 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_moves_set
 typedef struct s_stack
 {
 	long			*list;
-	int				lenght;
+	int				length;
 	int				size;
 	long			max[3];
 

@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 13:08:20 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 12:25:29 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 // {
 // 	t_stack *stack = get_address(name);
 // 	ft_printf("\n---%c---%c---%c---\n", name, name, name);
-// 	/* ft_printf("%c.lenght = %i\n", name, stack->lenght);
+// 	/* ft_printf("%c.length = %i\n", name, stack->length);
 // 	ft_printf("%c.size = %i\n", name, stack->size); */
-// 	for (int i = 0; i < stack->lenght; i++)
+// 	for (int i = 0; i < stack->length; i++)
 // 		ft_printf("%c[%i] = %i\n", name, i, stack->list[i]);
 // 	ft_printf("---%c---%c---%c---\n", name, name, name);
 // }
@@ -50,14 +50,14 @@ int	main(int argc, char **argv)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
 	if (!stack.a || !stack.b)
-		exit_msg("Error");
+		exit_msg("Error\n");
 	free(stack.a);
 	stack.a = create_stack(argv);
 	if (!stack.a)
-		exit_msg("Error");
+		exit_msg("Error\n");
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
-	stack.b->lenght = 0;
+	stack.b->length = 0;
 	mechanical_turk(&stack, stack.a, stack.b);
 	free_stack(&stack);
 }

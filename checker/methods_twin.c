@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ordering_utils.h                                   :+:      :+:    :+:   */
+/*   methods_twin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/08 14:45:19 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 14:17:39 by rceschel         ###   ########.fr       */
+/*   Created: 2025/03/19 14:35:47 by rceschel          #+#    #+#             */
+/*   Updated: 2025/04/23 15:24:28 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ORDERING_UTILS_H
-# define ORDERING_UTILS_H
-# include "stack_struct.h"
+#include "../headers/push_swap.h"
 
-void			free_moves_set(t_moves_set *moves, char *names);
-void			exec(t_moves_set *moves, char *names);
-void			translate_moves(t_moves_set *moves, t_stack_compose *stack,
-					char *names);
-t_moves_single	*get_moves_to_top(int index_from, int length);
-void			order_stack_a(t_stack_compose *stack);
+void	c_ss(void)
+{
+	swap(get_address('a'));
+	swap(get_address('b'));
+}
 
-#endif
+void	c_rr(void)
+{
+	rotate(get_address('a'));
+	rotate(get_address('b'));
+}
+
+void	c_rrr(void)
+{
+	rev_rotate(get_address('a'));
+	rev_rotate(get_address('b'));
+}

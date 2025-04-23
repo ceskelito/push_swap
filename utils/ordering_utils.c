@@ -1,4 +1,4 @@
-#include "../headers/ordering_utils.h"
+#include "../headers/push_swap.h"
 #include <stdlib.h>
 
 void	free_moves_set(t_moves_set *moves, char *names)
