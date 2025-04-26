@@ -1,7 +1,0 @@
-Review the order_three_nums function: some cases aren't covered.
-
-Some norme error in the parser.
-
-Segfault in the checker with 500 nums.
-
-It's the case to change the variadic function?...
