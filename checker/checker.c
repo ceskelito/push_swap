@@ -91,6 +91,9 @@ int	main(int argc, char **argv)
 	stack.a = create_stack(argv);
 	if (!stack.a)
 		exit_msg("Error\n");
+	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
+	stack.b->size = stack.a->size;
+	stack.b->length = 0;
 	move = get_move();
 	while (move)
 	{
