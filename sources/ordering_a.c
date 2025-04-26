@@ -6,7 +6,7 @@
 /*   By: rceschel <rceschel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:21:55 by rceschel          #+#    #+#             */
-/*   Updated: 2025/04/23 18:25:18 by rceschel         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:08:28 by rceschel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,58 @@ static void	order_three_nums(t_stack *a)
 		a->swap();
 	}
 }
+
+static void	order_three_nums(t_stack *a)
+{
+	if (is_sorted(a))
+		return ;
+	if (a->length > 3)
+		exit_msg("Error\n");
+	if (a->list[0] < a->list[1] && a->list[1] > a->list[2])
+	{
+		a->swap();
+		a->rotate();
+	}
+	else if (a->list[0] > a->list[1] && a->list[1] > a->list[2])
+	{
+		a->rotate();
+		a->swap();
+	}
+	else if (a->list[0] > a->list[1])
+	{
+
+	}
+	if (a->list[0] < a->list[2])
+		a->swap();
+	else
+		a->rotate();
+	return ;
+}
+
+// static void	order_three_nums_pro(t_stack_compose *stack)
+// {
+// 	int			target;
+// 	t_moves_set	*moves;
+
+// 	if (is_sorted(stack->a))
+// 		return ;
+// 	if (stack->a->length > 3)
+// 		exit_msg("Error\n");
+// 	stack->b->push();
+// 	if (!is_sorted(stack->a))
+// 		stack->a->swap;
+// 	target = find_target_index_a(stack->b->list[0], stack->a);
+// 	free(moves->a);
+// 	moves->a = get_moves_to_top(target, stack->a->length);
+// 	translate_moves(moves, stack, "a");
+// 	exec(moves, "a");
+// 	stack->a->push();
+// 	free_moves_set(moves, "a");
+// 	while(!is_sorted(stack->a)
+// 		stack->a->rotate();
+
+// }
+
 
 static int	find_target_index_a(int num, t_stack *a)
 {
@@ -95,8 +147,6 @@ static void	last_ordering_a(t_stack *a)
 			a->rev_rotate();
 	}
 }
-
-void		DEBUG_PRINT(char name);
 
 void	order_stack_a(t_stack_compose *stack)
 {
