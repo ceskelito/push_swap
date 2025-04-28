@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 	if (!stack.a || !stack.b)
 		exit_error();
 	free(stack.a);
-	stack.a = create_stack(argv, &stack);
+	stack.a = create_stack(argv);
 	if (!stack.a)
 		exit_error();
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));

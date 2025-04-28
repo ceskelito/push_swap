@@ -13,6 +13,8 @@
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
+
+// I'll free separately stack->a beacuse the pointer in the main stack will updated in the main function.
 static void free_exit(char *string, char **string_array, t_stack_compose *stack)
 {
 	if(string)
@@ -20,11 +22,14 @@ static void free_exit(char *string, char **string_array, t_stack_compose *stack)
 	if(string_array)
 		free_string_array(string_array);
 	if(stack)
+	{
 		free_stack(stack);
+		//free(get_address('a'));
+	}
 	exit_error();
 }
 
-static char	*join_args(char **args, t_stack_compose *stack_c)
+static char	*join_args(char **args)
 {
 	char	*str;
 	char	*tmp;
@@ -44,9 +49,9 @@ static char	*join_args(char **args, t_stack_compose *stack_c)
 		if (str[i] == '+' || str[i] == '-')
 		{
 			if (str[i + 1] && !ft_isdigit(str[i + 1]))
-				free_exit(str, NULL, stack_c);
+				free_exit(str, NULL, address_compose("get"));
 			if (i > 0 && !ft_isspace(str[i - 1]))
-				free_exit(str, NULL, stack_c);
+				free_exit(str, NULL, address_compose("get"));
 		}
 	}
 	return (str);
@@ -77,7 +82,7 @@ static int	count_and_check(char **stack)
 	return (i);
 }
 
-static void	fill_stack(t_stack *stack, char **string_stack, t_stack_compose *stack_c)
+static void	fill_stack(t_stack *stack, char **string_stack)
 {
 	int	i;
 	int	j;
@@ -85,7 +90,7 @@ static void	fill_stack(t_stack *stack, char **string_stack, t_stack_compose *sta
 
 	len = count_and_check(string_stack);
 	if(len < 0)
-		free_exit(NULL, NULL, stack_c);
+		free_exit(NULL, NULL, address_compose("get"));
 	stack->list = ft_calloc(len, sizeof(long));
 	if (!stack->list)
 		exit(EXIT_FAILURE);
@@ -94,29 +99,28 @@ static void	fill_stack(t_stack *stack, char **string_stack, t_stack_compose *sta
 	{
 		stack->list[i] = ft_atol(string_stack[i]);
 		if (stack->list[i] != (int)stack->list[i])
-			free_exit(NULL, string_stack, stack_c);
+			free_exit(NULL, string_stack, address_compose("get"));
 		j = i;
 		while (--j >= 0)
 			if (stack->list[i] == stack->list[j])
-				free_exit(NULL, string_stack, stack_c);
+				free_exit(NULL, string_stack, address_compose("get"));
 		i++;
 	}
 	stack->size = len;
 	stack->length = len;
 }
 
-t_stack	*create_stack(char **args, t_stack_compose *stack_c)
+t_stack	*create_stack(char **args)
 {
 	char	**string_stack;
 	char	*joined;
 	t_stack	*stack;
 
 	stack = new_stack('a');
-	stack_c->a = stack;
-	joined = join_args(args, stack_c);
+	joined = join_args(args);
 	string_stack = ft_split(joined, ' ');
 	free(joined);
-	fill_stack(stack, string_stack, stack_c);
+	fill_stack(stack, string_stack);
 	free_string_array(string_stack);
 	return (stack);
 }
