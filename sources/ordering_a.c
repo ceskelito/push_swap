@@ -107,7 +107,7 @@ void	order_stack_a(t_stack_compose *stack)
 		moves->a = get_moves_to_top(target, stack->a->length);
 		translate_moves(moves, stack, "a");
 		exec(moves, "a");
-		free_moves_set(moves, "a");
+		free_moves_set(moves, "abt");
 		stack->a->push();
 	}
 	last_ordering_a(stack->a);
