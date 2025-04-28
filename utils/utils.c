@@ -14,12 +14,41 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-void	exit_msg(char *msg)
+void	free_string_array(char **string_stack)
 {
-	if (msg)
-		write(2, msg, ft_strlen(msg));
-	else
-		write(2, "Error\n", 7);
+	int	i;
+
+	i = 0;
+	while (string_stack[i])
+	{
+		free(string_stack[i]);
+		i++;
+	}
+	if (string_stack)
+		free(string_stack);
+}
+
+void	free_stack(t_stack_compose *stack)
+{
+	if (!stack)
+		return ;
+	if (stack->a)
+	{
+		if (stack->a->list)
+			free(stack->a->list);
+		free(stack->a);
+	}
+	if (stack->b)
+	{
+		if (stack->b->list)
+			free(stack->b->list);
+		free(stack->b);
+	}
+}
+
+void	exit_error(void)
+{
+	write(2, "Error\n", 7);
 	exit(EXIT_FAILURE);
 }
 

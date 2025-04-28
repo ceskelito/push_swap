@@ -24,24 +24,6 @@
 // 	ft_printf("---%c---%c---%c---\n", name, name, name);
 // }
 
-static void	free_stack(t_stack_compose *stack)
-{
-	if (!stack)
-		return ;
-	if (stack->a)
-	{
-		if (stack->a->list)
-			free(stack->a->list);
-		free(stack->a);
-	}
-	if (stack->b)
-	{
-		if (stack->b->list)
-			free(stack->b->list);
-		free(stack->b);
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack_compose	stack;
@@ -50,11 +32,11 @@ int	main(int argc, char **argv)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
 	if (!stack.a || !stack.b)
-		exit_msg("Error\n");
+		exit_error();
 	free(stack.a);
-	stack.a = create_stack(argv);
+	stack.a = create_stack(argv, &stack);
 	if (!stack.a)
-		exit_msg("Error\n");
+		exit_error();
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->length = 0;

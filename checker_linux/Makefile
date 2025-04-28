@@ -1,10 +1,10 @@
-NAME = checker
+NAME	:= ../checker
 CC 		:= cc 
 CFLAGS 	:= -Wall -Werror -Wextra -g -gdwarf-4
 RM 		:= rm -f
-MKDIR 		:= mkdir -p
+MKDIR 	:= mkdir -p
 
-PS_OBJS_DIR		:= ../objs
+PS_OBJS_DIR	:= ../objs
 OBJS_DIR 	:= objs
 SRCS_DIR	:= .
 LIB 		:= ../LIBFT/libft.a

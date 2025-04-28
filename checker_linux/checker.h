@@ -14,6 +14,7 @@
 # define CHECKER_H
 # include "../headers/push_swap.h"
 # include <unistd.h>
+# include <stddef.h>
 
 void	c_sa(void);
 void	c_pa(void);

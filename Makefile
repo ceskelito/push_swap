@@ -1,8 +1,11 @@
-NAME 	= push_swap
-CC 		:= cc 
-CFLAGS 	:= -Wall -Werror -Wextra -g -gdwarf-4
-RM 		:= rm -f
+NAME 		:= push_swap
+BONUS		:= checker
+BONUS_DIR	:= checker_linux
+CC 			:= cc
+CFLAGS 		:= -Wall -Werror -Wextra -g -gdwarf-4
+RM 			:= rm -f
 MKDIR 		:= mkdir -p
+MAKE		:= @make -C
 
 OBJS_DIR 	:= objs
 SRCS_DIR	:= sources
@@ -35,20 +38,29 @@ $(OBJS_DIR)/%.o: $(UTILS_DIR)/%.c
 	@printf "creating obj %-33.33s\r" $@
 
 
-all: $(NAME)
+all: $(NAME) $(BONUS)
+
+mandatory: $(NAME)
+
+bonus: $(BONUS)
+
+$(BONUS): $(OBJECTS)
+	$(MAKE) $(BONUS_DIR)
 
 $(NAME): $(OBJECTS) $(LIB)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIB) -o $(NAME)
 	
 $(LIB):
-	@make -C LIBFT
+	$(MAKE) LIBFT
 
 clean:
-	@make -C LIBFT clean
+	$(MAKE) LIBFT clean
+	$(MAKE) $(BONUS_DIR) clean
 	rm -f $(OBJECTS)
 
 fclean: clean
-	@make -C LIBFT fclean
+	$(MAKE) LIBFT fclean
+	$(MAKE) $(BONUS_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all

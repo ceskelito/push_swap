@@ -13,7 +13,18 @@
 #include "../headers/push_swap.h"
 #include "../headers/stack_utils.h"
 
-static char	*join_args(char **args)
+static void free_exit(char *string, char **string_array, t_stack_compose *stack)
+{
+	if(string)
+		free(string);
+	if(string_array)
+		free_string_array(string_array);
+	if(stack)
+		free_stack(stack);
+	exit_error();
+}
+
+static char	*join_args(char **args, t_stack_compose *stack_c)
 {
 	char	*str;
 	char	*tmp;
@@ -33,29 +44,14 @@ static char	*join_args(char **args)
 		if (str[i] == '+' || str[i] == '-')
 		{
 			if (str[i + 1] && !ft_isdigit(str[i + 1]))
-				exit_msg("Error\n");
-			if (str[i - 1] && !ft_isspace(str[i - 1]))
-				exit_msg("Error\n");
+				free_exit(str, NULL, stack_c);
+			if (i > 0 && !ft_isspace(str[i - 1]))
+				free_exit(str, NULL, stack_c);
 		}
 	}
 	return (str);
 }
 
-static void	free_string_array(char **string_stack, int exit)
-{
-	int	i;
-
-	i = 0;
-	while (string_stack[i])
-	{
-		free(string_stack[i]);
-		i++;
-	}
-	if (string_stack)
-		free(string_stack);
-	if (exit)
-		exit_msg("Error\n");
-}
 
 static int	count_and_check(char **stack)
 {
@@ -71,8 +67,8 @@ static int	count_and_check(char **stack)
 			if (!(ft_isdigit(stack[i][j]) || stack[i][j] == '+'
 					|| stack[i][j] == '-'))
 			{
-				free_string_array(stack, 0);
-				exit_msg("Error\n");
+				free_string_array(stack);
+				return (-1);
 			}
 			j++;
 		}
@@ -81,13 +77,15 @@ static int	count_and_check(char **stack)
 	return (i);
 }
 
-static void	fill_stack(t_stack *stack, char **string_stack)
+static void	fill_stack(t_stack *stack, char **string_stack, t_stack_compose *stack_c)
 {
 	int	i;
 	int	j;
 	int	len;
 
 	len = count_and_check(string_stack);
+	if(len < 0)
+		free_exit(NULL, NULL, stack_c);
 	stack->list = ft_calloc(len, sizeof(long));
 	if (!stack->list)
 		exit(EXIT_FAILURE);
@@ -96,28 +94,29 @@ static void	fill_stack(t_stack *stack, char **string_stack)
 	{
 		stack->list[i] = ft_atol(string_stack[i]);
 		if (stack->list[i] != (int)stack->list[i])
-			free_string_array(string_stack, 1);
+			free_exit(NULL, string_stack, stack_c);
 		j = i;
 		while (--j >= 0)
 			if (stack->list[i] == stack->list[j])
-				free_string_array(string_stack, 1);
+				free_exit(NULL, string_stack, stack_c);
 		i++;
 	}
 	stack->size = len;
 	stack->length = len;
 }
 
-t_stack	*create_stack(char **args)
+t_stack	*create_stack(char **args, t_stack_compose *stack_c)
 {
 	char	**string_stack;
 	char	*joined;
 	t_stack	*stack;
 
 	stack = new_stack('a');
-	joined = join_args(args);
+	stack_c->a = stack;
+	joined = join_args(args, stack_c);
 	string_stack = ft_split(joined, ' ');
 	free(joined);
-	fill_stack(stack, string_stack);
-	free_string_array(string_stack, 0);
+	fill_stack(stack, string_stack, stack_c);
+	free_string_array(string_stack);
 	return (stack);
 }

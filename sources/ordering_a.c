@@ -17,7 +17,7 @@ static void	order_three_nums(t_stack *a)
 	if (is_sorted(a))
 		return ;
 	if (a->length > 3)
-		exit_msg("Error\n");
+		exit_error();
 	if ((a->list[0] < a->list[1] && a->list[1] > a->list[2]
 			&& a->list[0] < a->list[2])
 		|| (a->list[0] > a->list[1] && a->list[1] > a->list[2]))
@@ -99,16 +99,16 @@ void	order_stack_a(t_stack_compose *stack)
 		order_three_nums(stack->a);
 	else if (stack->a->length == 2 && !is_sorted(stack->a))
 		stack->a->swap();
-	moves = new_moves_set();
 	while (stack->b->length > 0)
 	{
 		target = find_target_index_a(stack->b->list[0], stack->a);
+		moves = new_moves_set();
 		free(moves->a);
 		moves->a = get_moves_to_top(target, stack->a->length);
 		translate_moves(moves, stack, "a");
 		exec(moves, "a");
+		free_moves_set(moves, "a");
 		stack->a->push();
 	}
-	free_moves_set(moves, "a");
 	last_ordering_a(stack->a);
 }

@@ -46,28 +46,10 @@ static void	(*get_move())(void)
 	char	*buff;
 	void	(*move)(void);
 
-	buff = get_next_line(0);
+	buff = get_next_line(STDIN_FILENO);
 	move = select_move(buff);
 	free(buff);
 	return (move);
-}
-
-static void	free_stack(t_stack_compose *stack)
-{
-	if (!stack)
-		return ;
-	if (stack->a)
-	{
-		if (stack->a->list)
-			free(stack->a->list);
-		free(stack->a);
-	}
-	if (stack->b)
-	{
-		if (stack->b->list)
-			free(stack->b->list);
-		free(stack->b);
-	}
 }
 
 void	init_b(t_stack_compose *stack)
@@ -85,12 +67,10 @@ int	main(int argc, char **argv)
 	if (argc <= 1)
 		exit(EXIT_SUCCESS);
 	stack = new_stack_compose();
-	if (!stack.a || !stack.b)
-		exit_msg("Error\n");
 	free(stack.a);
-	stack.a = create_stack(argv);
-	if (!stack.a)
-		exit_msg("Error\n");
+	stack.a = create_stack(argv, &stack);
+	if (!stack.a || !stack.b)
+		exit_error();
 	stack.b->list = ft_calloc(stack.a->size, sizeof(long));
 	stack.b->size = stack.a->size;
 	stack.b->length = 0;
