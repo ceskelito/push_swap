@@ -81,8 +81,8 @@ int	main(int argc, char **argv)
 		move = get_move();
 	}
 	if (is_sorted(stack.a))
-		write(1, "OK", 2);
+		write(1, "OK\n", 2);
 	else
-		write(1, "KO", 2);
+		write(1, "KO\n", 2);
 	free_stack(&stack);
 }
