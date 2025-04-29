@@ -27,9 +27,8 @@ void	rev_rotate(t_stack *stack);
 
 /**********UTILS********/
 void	exit_error(void);
-t_stack	*create_stack(char **args, t_stack_compose *stack_c);
+t_stack	*create_stack(char **args);
 bool	is_sorted(t_stack *stack);
-void	free_stack(t_stack_compose *stack);
 void	free_string_array(char **string_stack);
 
 /**********ALGO*********/

@@ -28,24 +28,6 @@ void	free_string_array(char **string_stack)
 		free(string_stack);
 }
 
-void	free_stack(t_stack_compose *stack)
-{
-	if (!stack)
-		return ;
-	if (stack->a)
-	{
-		if (stack->a->list)
-			free(stack->a->list);
-		free(stack->a);
-	}
-	if (stack->b)
-	{
-		if (stack->b->list)
-			free(stack->b->list);
-		free(stack->b);
-	}
-}
-
 void	exit_error(void)
 {
 	write(2, "Error\n", 7);

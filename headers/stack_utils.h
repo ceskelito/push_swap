@@ -38,6 +38,8 @@ t_moves_set		*new_moves_set(void);
 
 /*********UTILS*********/
 t_stack			*get_address(int stack_name, ...);
+t_stack_compose *address_compose(char *request, ...);
 void			swap_values(long *a, long *b);
+void	        free_stack(t_stack_compose *stack);
 
 #endif
